@@ -1,4 +1,6 @@
-﻿namespace PrimitiveAdventure.Core;
+﻿using PrimitiveAdventure.Core.Global;
+
+namespace PrimitiveAdventure.Core;
 
 public interface IPlayer: IGlobalMapCell
 {

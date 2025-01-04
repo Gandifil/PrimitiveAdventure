@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core;
+using PrimitiveAdventure.Core.Global;
 
 namespace PrimitiveAdventure.Screens;
 

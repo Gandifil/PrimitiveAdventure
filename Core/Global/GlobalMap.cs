@@ -1,4 +1,4 @@
-﻿namespace PrimitiveAdventure.Core;
+﻿namespace PrimitiveAdventure.Core.Global;
 
 public interface IGlobalMap
 {
