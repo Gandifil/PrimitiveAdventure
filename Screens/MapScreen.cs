@@ -5,12 +5,14 @@ namespace PrimitiveAdventure.Screens;
 public class MapScreen: Console
 {
     private readonly IGlobalMap _globalMap;
+    private readonly IPlayer _player;
     //private readonly Lazy<AnimatedScreenObject> _enemyGroupAnimation = new(Create);
     
-    public MapScreen(int width, int height, IGlobalMap globalMap) : base(width, height)
+    public MapScreen(int width, int height, IGlobalMap globalMap, IPlayer player) : base(width, height)
     {
         _globalMap = globalMap;
-        
+        _player = player;
+
         Cursor.PrintAppearanceMatchesHost = false;
 
         Update();
@@ -23,11 +25,20 @@ public class MapScreen: Console
 
         Children.Clear();
         this.Fill(new ColoredGlyph());
+
+        var playerCellPosition = _player.GlobalPosition * (CELL_WIDTH, CELL_HEIGHT) + (CELL_WIDTH / 2, CELL_HEIGHT / 2);
+        var offset = playerCellPosition - (Width / 2, Height / 2) + (0, 1);
+        offset *= -1;
+
+        var view = new Rectangle(0, 1, Width, Height);
         
         for (int x = 0; x < _globalMap.Size.X; x++)
         for (int y = 0; y < _globalMap.Size.Y; y++)
         {
             var rect = new Rectangle(CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH + 1, CELL_HEIGHT + 1);
+            rect = rect.ChangePosition(offset);
+            if (!view.Contains(rect))
+                continue;
             Surface.DrawBox(rect, 
                 ShapeParameters.CreateStyledBoxThin(Color.Aqua));
 
@@ -37,8 +48,6 @@ public class MapScreen: Console
                 var resource = cell.Resource;
                 if (cell is EnemyGroup)
                     CreateAnimation().Position = new Point(rect.X + 1, rect.Y + 1);
-                    // this.DrawBox(new Rectangle(rect.X + 2, rect.Y + 2, 3, 3), 
-                    //     ShapeParameters.CreateFilled(new ColoredGlyph(Color.Violet, Color.Black, 176)));
                 if (string.IsNullOrEmpty(resource))
                     Cursor
                         .SetPrintAppearance(Color.Yellow)

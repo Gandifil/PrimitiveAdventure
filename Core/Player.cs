@@ -1,6 +1,11 @@
 ﻿namespace PrimitiveAdventure.Core;
 
-public class Player: IGlobalMapCell
+public interface IPlayer: IGlobalMapCell
+{
+    public Point GlobalPosition { get; }
+}
+
+public class Player: IPlayer
 {
     public Point GlobalPosition { get; set; }
     public string Name { get; } = "player";
