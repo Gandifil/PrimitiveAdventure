@@ -42,6 +42,12 @@ public class MapScreen: Console
                 continue;
             Surface.DrawBox(rect, 
                 ShapeParameters.CreateStyledBoxThin(Color.Aqua));
+            
+            if (_globalMap.IsDoorOpened(x, y, false))
+                this.SetGlyph(rect.X + CELL_WIDTH/2, rect.MaxExtentY, 187);
+            
+            if (_globalMap.IsDoorOpened(x, y, true))
+                this.SetGlyph(rect.MaxExtentX, rect.Y + CELL_HEIGHT/2, 187);
 
             var cell = _globalMap[x, y];
             if (cell is not null)
@@ -70,6 +76,27 @@ public class MapScreen: Console
             }
         }
         Surface.ConnectLines(ICellSurface.ConnectedLineThin);
+        
+        for (int x = 0; x < _globalMap.Size.X; x++)
+        for (int y = 0; y < _globalMap.Size.Y; y++)
+        {
+            var rect = new Rectangle(CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH + 1, CELL_HEIGHT + 1);
+            rect = rect.ChangePosition(offset);
+            if (!view.Contains(rect))
+                continue;
+
+            if (_globalMap.IsDoorOpened(x, y, false))
+            {
+                this.SetGlyph(rect.X + CELL_WIDTH/2, rect.MaxExtentY, 217);
+                this.SetGlyph(rect.X + CELL_WIDTH/2 + 1, rect.MaxExtentY, 0);
+            }
+
+            if (_globalMap.IsDoorOpened(x, y, true))
+            {
+                this.SetGlyph(rect.MaxExtentX, rect.Y + CELL_HEIGHT/2, 217);
+                this.SetGlyph(rect.MaxExtentX, rect.Y + CELL_HEIGHT/2 + 1, 0);
+            }
+        }
     }
 
     private AnimatedScreenObject CreateAnimation()
