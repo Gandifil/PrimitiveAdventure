@@ -5,6 +5,7 @@ namespace PrimitiveAdventure.Screens;
 public class MapScreen: Console
 {
     private readonly IGlobalMap _globalMap;
+    //private readonly Lazy<AnimatedScreenObject> _enemyGroupAnimation = new(Create);
     
     public MapScreen(int width, int height, IGlobalMap globalMap) : base(width, height)
     {
@@ -20,6 +21,7 @@ public class MapScreen: Console
         const int CELL_WIDTH = 15;
         const int CELL_HEIGHT = 7;
 
+        Children.Clear();
         this.Fill(new ColoredGlyph());
         
         for (int x = 0; x < _globalMap.Size.X; x++)
@@ -33,6 +35,10 @@ public class MapScreen: Console
             if (cell is not null)
             {
                 var resource = cell.Resource;
+                if (cell is EnemyGroup)
+                    CreateAnimation().Position = new Point(rect.X + 1, rect.Y + 1);
+                    // this.DrawBox(new Rectangle(rect.X + 2, rect.Y + 2, 3, 3), 
+                    //     ShapeParameters.CreateFilled(new ColoredGlyph(Color.Violet, Color.Black, 176)));
                 if (string.IsNullOrEmpty(resource))
                     Cursor
                         .SetPrintAppearance(Color.Yellow)
@@ -54,5 +60,39 @@ public class MapScreen: Console
             }
         }
         Surface.ConnectLines(ICellSurface.ConnectedLineThin);
+    }
+
+    private AnimatedScreenObject CreateAnimation()
+    {
+        var animation = new AnimatedScreenObject(
+            name: "Pulse", 
+            width: 4,
+            height: 4)
+        {
+            //Position = new Point(Game.Instance.StartingConsole.Width / 2, Game.Instance.StartingConsole.Height / 2),
+            AnimationDuration = TimeSpan.FromMilliseconds(100) * 4, // 0.1 seconds per frame
+            
+        };
+        animation.AnimationStateChanged += (sender, args) =>
+        {
+            // Remove animation when its finished playing
+            if (args.NewState == AnimatedScreenObject.AnimationState.Finished)
+                animation.Restart();
+        };
+        // Add 10 frames with circle starting from middle enlarging
+        for (int i=0; i < 4; i++)
+        {
+            var frame = animation.CreateFrame();
+            frame.DefaultBackground = Color.Transparent;
+            frame.DefaultForeground = Color.Red;
+            for (int x = 0; x < frame.Width; x++)
+            for (int y = 0; y < frame.Height; y++)
+                frame[x, y].Glyph = Random.Shared.Next() % 2 == 0 ? 176 : 0;
+        }
+        
+        // Add animation as a child and start playing it
+        Children.Add(animation);
+        animation.Start();
+        return animation;
     }
 }
