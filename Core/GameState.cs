@@ -13,6 +13,7 @@ public class GameState
         GlobalMap.Spawn(new Chest(), 4, 4);
         
         Player = new Player();
-        Player.GlobalPosition = new Point(5, 5);
+        Player.GlobalPosition = new Point(3, 3);
+        GlobalMap.Spawn(Player, 3, 3);
     }
 }
