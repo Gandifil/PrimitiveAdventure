@@ -1,58 +1,48 @@
-﻿using PrimitiveAdventure.Core;
+﻿using System.IO.MemoryMappedFiles;
+using PrimitiveAdventure.Core;
 using SadConsole.Components;
+using SadConsole.Input;
 
 namespace PrimitiveAdventure.Screens;
 
 public class GlobalModeScreen: Console 
 {
     private readonly GameState _gameState;
+    private readonly MapScreen _mapScreen;
+
+    private const int SEPARATE_SCREEN_WIDTH = 30;
     
     public GlobalModeScreen(GameState gameState) : base(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT)
     {
         _gameState = gameState;
         
-        Cursor.PrintAppearanceMatchesHost = false;
-        
-        RenderMap(_gameState.GlobalMap);
+        Children.Add(_mapScreen = new MapScreen(
+            GameSettings.GAME_WIDTH - SEPARATE_SCREEN_WIDTH, 
+            GameSettings.GAME_HEIGHT, _gameState.GlobalMap));
     }
-
-    private void RenderMap(IGlobalMap map)
+    
+    public override bool ProcessKeyboard(Keyboard keyboard)
     {
-        const int CELL_WIDTH = 15;
-        const int CELL_HEIGHT = 7;
+        Point? shift = null;
         
-        for (int x = 0; x < map.Size.X; x++)
-        for (int y = 0; y < map.Size.Y; y++)
+        if (keyboard.IsKeyReleased(Keys.W) || keyboard.IsKeyReleased(Keys.Up))
+            shift =  new Point(0, -1);
+        
+        if (keyboard.IsKeyReleased(Keys.S) || keyboard.IsKeyReleased(Keys.Down))
+            shift =  new Point(0, 1);
+        
+        if (keyboard.IsKeyReleased(Keys.A) || keyboard.IsKeyReleased(Keys.Left))
+            shift =  new Point(-1, 0);
+        
+        if (keyboard.IsKeyReleased(Keys.D) || keyboard.IsKeyReleased(Keys.Right))
+            shift =  new Point(1, 0);
+
+        if (shift.HasValue)
         {
-            var rect = new Rectangle(CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH + 1, CELL_HEIGHT + 1);
-            Surface.DrawBox(rect, 
-                ShapeParameters.CreateStyledBoxThin(Color.Aqua));
-
-            var cell = map[x, y];
-            if (cell is not null)
-            {
-                var resource = cell.Resource;
-                if (string.IsNullOrEmpty(resource))
-                    Cursor
-                        .SetPrintAppearance(Color.Yellow)
-                        .Move(rect.X + 1, rect.Y + 1)
-                        .Print(cell.Name);
-                else
-                {
-                    var lines = File.ReadLines("Resources/" + resource + ".txt");
-
-                    Cursor.Move(rect.X + 1, rect.Y + 1)
-                        .SetPrintAppearance(Color.Green);
-                    foreach (var line in lines)
-                    {
-                        Cursor.Print(line);
-                        Cursor.Row++;
-                        Cursor.Column = rect.X + 1;
-                    }
-                        
-                }
-            }
+            _gameState.MovePlayer(shift.Value);
+            _mapScreen.Update();
+            return true;
         }
-        Surface.ConnectLines(ICellSurface.ConnectedLineThin);
+        return base.ProcessKeyboard(keyboard);
     }
 }

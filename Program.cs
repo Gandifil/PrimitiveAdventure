@@ -23,4 +23,6 @@ void Startup(object? sender, GameHost host)
     Settings.ResizeMode = Settings.WindowResizeOptions.Scale;
 
     Game.Instance.Screen = new GlobalModeScreen(new GameState());
+    Game.Instance.Screen.IsFocused = true;
+    Game.Instance.DestroyDefaultStartingConsole();
 }

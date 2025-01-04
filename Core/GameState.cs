@@ -16,4 +16,10 @@ public class GameState
         Player.GlobalPosition = new Point(3, 3);
         GlobalMap.Spawn(Player, 3, 3);
     }
+
+    public void MovePlayer(Point shift)
+    {
+        GlobalMap.Move(Player.GlobalPosition, Player.GlobalPosition + shift);
+        Player.GlobalPosition += shift;
+    }
 }
