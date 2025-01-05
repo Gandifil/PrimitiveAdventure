@@ -1,13 +1,14 @@
 ﻿using PrimitiveAdventure.Core.Global;
+using PrimitiveAdventure.Core.Rpg;
 
 namespace PrimitiveAdventure.Core;
 
-public interface IPlayer: IGlobalMapCell
+public interface IPlayer: IActor, IGlobalMapCell
 {
     public Point GlobalPosition { get; }
 }
 
-public class Player: IPlayer
+public class Player: Actor, IPlayer
 {
     public Point GlobalPosition { get; set; }
     public string Name { get; } = "player";

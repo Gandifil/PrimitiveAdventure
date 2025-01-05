@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Global;
+using PrimitiveAdventure.Core.Rpg.Actors;
 
 namespace PrimitiveAdventure.Core;
 
@@ -13,7 +14,9 @@ public class GameState
         GlobalMap = new GlobalMap(new Point(10, 10));
         GlobalMap.Spawn(new Chest(), 1, 1);
         GlobalMap.Spawn(new Chest(), 4, 4);
-        GlobalMap.Spawn(new EnemyGroup(), 2, 3);
+        var enemyGroup = new EnemyGroup();
+        enemyGroup.Enemies.Add(new Dog());
+        GlobalMap.Spawn(enemyGroup, 2, 3);
         
         Player = new Player();
         Player.GlobalPosition = new Point(3, 3);
@@ -22,7 +25,11 @@ public class GameState
 
     public void MovePlayer(Point shift)
     {
-        GlobalMap.Move(Player.GlobalPosition, Player.GlobalPosition + shift);
-        Player.GlobalPosition += shift;
+        var newPosition = Player.GlobalPosition + shift;
+        var nextCell = GlobalMap[newPosition];
+        
+        GlobalMap.Move(Player.GlobalPosition, newPosition);
+        Player.GlobalPosition = newPosition;
+        nextCell?.OnCollisionWith(Player);
     }
 }
