@@ -106,17 +106,13 @@ public class MapScreen: Console
             width: 4,
             height: 4)
         {
-            //Position = new Point(Game.Instance.StartingConsole.Width / 2, Game.Instance.StartingConsole.Height / 2),
-            AnimationDuration = TimeSpan.FromMilliseconds(100) * 4, // 0.1 seconds per frame
-            
+            AnimationDuration = TimeSpan.FromMilliseconds(100) * 4,
         };
         animation.AnimationStateChanged += (sender, args) =>
         {
-            // Remove animation when its finished playing
             if (args.NewState == AnimatedScreenObject.AnimationState.Finished)
                 animation.Restart();
         };
-        // Add 10 frames with circle starting from middle enlarging
         for (int i=0; i < 4; i++)
         {
             var frame = animation.CreateFrame();
@@ -127,7 +123,6 @@ public class MapScreen: Console
                 frame[x, y].Glyph = Random.Shared.Next() % 2 == 0 ? 176 : 0;
         }
         
-        // Add animation as a child and start playing it
         Children.Add(animation);
         animation.Start();
         return animation;
