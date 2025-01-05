@@ -3,7 +3,7 @@ using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Screens;
 
-public class FightScreen: Console
+public class FightScreen: BaseScreen
 {
     const int CELL_WIDTH = 15;
     const int CELL_HEIGHT = 7;

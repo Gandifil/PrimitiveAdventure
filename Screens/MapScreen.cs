@@ -4,7 +4,7 @@ using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Screens;
 
-public class MapScreen: Console
+public class MapScreen: BaseScreen
 {
     const int CELL_WIDTH = 15;
     const int CELL_HEIGHT = 7;
@@ -16,8 +16,6 @@ public class MapScreen: Console
     {
         _globalMap = globalMap;
         _player = player;
-
-        Cursor.PrintAppearanceMatchesHost = false;
 
         Update();
     }
