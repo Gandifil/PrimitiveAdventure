@@ -11,7 +11,8 @@ public class FightProcess
     private readonly List<Actor> _enemies;
 
     public IPlayer Player => _player;
-    
+    public IReadOnlyCollection<IActor> Enemies => _enemies.AsReadOnly();
+
     public FightProcess(Player player, IEnumerable<Actor> enemies)
     {
         _player = player;

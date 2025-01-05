@@ -4,6 +4,6 @@ public class Dog: Actor
 {
     public Dog()
     {
-        Name = "Dog";
+        Name = "ацкий пес";
     }
 }

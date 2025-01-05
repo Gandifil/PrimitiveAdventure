@@ -24,6 +24,23 @@ public class FightScreen: BaseScreen
 
         DrawWalls();
         DrawPlayer();
+        DrawEnemies();
+    }
+
+    private void DrawEnemies()
+    {
+        foreach (var enemy in _fightProcess.Enemies)
+            DrawEnemy(enemy);
+    }
+
+    private void DrawEnemy(IActor enemy)
+    {
+        var (x, y) = enemy.LocalPosition;
+        var rect = new Rectangle(CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH + 1, CELL_HEIGHT + 1);
+
+        Cursor.Move(rect.X + 1, rect.Y + 1)
+            .SetPrintAppearance(Color.Red)
+            .Print(enemy.Name.Prepare());
     }
 
     private void DrawWalls()
@@ -41,7 +58,6 @@ public class FightScreen: BaseScreen
     {
         var (x, y) = _fightProcess.Player.LocalPosition;
         var rect = new Rectangle(CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH + 1, CELL_HEIGHT + 1);
-            
         var lines = Services.Resources.Load<IEnumerable<string>>(_fightProcess.Player.Resource!);
 
         Cursor.Move(rect.X + 1, rect.Y + 1)
