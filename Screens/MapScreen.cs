@@ -1,5 +1,6 @@
 ﻿using PrimitiveAdventure.Core;
 using PrimitiveAdventure.Core.Global;
+using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Screens;
 
@@ -7,7 +8,6 @@ public class MapScreen: Console
 {
     private readonly IGlobalMap _globalMap;
     private readonly IPlayer _player;
-    //private readonly Lazy<AnimatedScreenObject> _enemyGroupAnimation = new(Create);
     
     public MapScreen(int width, int height, IGlobalMap globalMap, IPlayer player) : base(width, height)
     {
@@ -62,7 +62,7 @@ public class MapScreen: Console
                         .Print(cell.Name);
                 else
                 {
-                    var lines = File.ReadLines("Resources/" + resource + ".txt");
+                    var lines = Services.Resources.Load<IEnumerable<string>>(resource);
 
                     Cursor.Move(rect.X + 1, rect.Y + 1)
                         .SetPrintAppearance(Color.Green);

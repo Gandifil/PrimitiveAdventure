@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg;
+using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Screens;
 
@@ -41,7 +42,7 @@ public class FightScreen: Console
         var (x, y) = _fightProcess.Player.LocalPosition;
         var rect = new Rectangle(CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH + 1, CELL_HEIGHT + 1);
             
-        var lines = File.ReadLines("Resources/" + _fightProcess.Player.Resource + ".txt");
+        var lines = Services.Resources.Load<IEnumerable<string>>(_fightProcess.Player.Resource!);
 
         Cursor.Move(rect.X + 1, rect.Y + 1)
             .SetPrintAppearance(Color.Green);
