@@ -70,7 +70,11 @@ public class MapScreen: BaseScreen
     {
         var resource = cell.Resource;
         if (cell is EnemyGroup)
-            CreateAnimation().Position = new Point(rect.X + 1, rect.Y + 1);
+        {
+            var animation = Animations.ForEnemyGroup();
+            animation.Position = new Point(rect.X + 1, rect.Y + 1);
+            Start(animation);
+        }
         if (string.IsNullOrEmpty(resource))
             Cursor
                 .SetPrintAppearance(Color.Yellow)
@@ -89,13 +93,5 @@ public class MapScreen: BaseScreen
                 Cursor.Column = rect.X + 1;
             }
         }
-    }
-
-    private AnimatedScreenObject CreateAnimation()
-    {
-        var animation = Animations.ForEnemyGroup();
-        Children.Add(animation);
-        animation.Start();
-        return animation;
     }
 }

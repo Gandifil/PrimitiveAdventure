@@ -6,4 +6,10 @@ public abstract class BaseScreen: Console
     {
         Cursor.PrintAppearanceMatchesHost = false;
     }
+
+    protected void Start(AnimatedScreenObject animation)
+    {
+        Children.Add(animation);
+        animation.Start();
+    }
 }
