@@ -12,6 +12,7 @@ Builder gameStartup = new Builder()
     .UseDefaultConsole()
     .IsStartingScreenFocused(true)
     .ConfigureFonts(true)
+    .ConfigureFonts("Resources/Fonts/Cheepicus12.font")
     .OnStart(Startup);
 
 Game.Create(gameStartup);
