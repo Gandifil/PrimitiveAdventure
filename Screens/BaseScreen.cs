@@ -1,6 +1,8 @@
-﻿namespace PrimitiveAdventure.Screens;
+﻿using SadConsole.UI;
 
-public abstract class BaseScreen: Console
+namespace PrimitiveAdventure.Screens;
+
+public abstract class BaseScreen: ControlsConsole
 {
     protected BaseScreen(int width, int height) : base(width, height)
     {
