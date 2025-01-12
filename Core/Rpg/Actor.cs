@@ -12,6 +12,10 @@ public interface IActor
     ILimitedValue<int> Health { get; }
     
     IControllable Controller { get; }
+    
+    int Damage { get; }
+    
+    bool IsAlive { get; }
 }
 
 public abstract class Actor : IActor
@@ -21,5 +25,15 @@ public abstract class Actor : IActor
 
     public LimitedValue<int> Health { get; } = new(10);
     public IControllable Controller { get; set; }
+
+    public int Damage { get; } = 1;
+    
+    public bool IsAlive => Health.Value > 0;
+    
     ILimitedValue<int> IActor.Health => Health;
+
+    public void Attack(Actor target)
+    {
+        target.Health.Value -= Damage;
+    }
 }

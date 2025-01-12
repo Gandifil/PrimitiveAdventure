@@ -16,7 +16,7 @@ public class FightScreen: BaseScreen
     const int CELL_HEIGHT = 8;
     
     private readonly FightProcess _fightProcess;
-    private readonly Button _button;
+    private readonly Button _attackButton;
     private readonly Button _moveButton;
     private readonly Dictionary<IActor, Panel> _enemyPanels  = new();
     
@@ -24,10 +24,10 @@ public class FightScreen: BaseScreen
     {
         _fightProcess = fightProcess;
 
-        _button = new KeyedButton("атака".Prepare(), Keys.A);
-        _button.Position = new Point(0, height - 1);
-        _button.Click += (_, __) => Debug.Assert(false);
-        Controls.Add(_button);
+        _attackButton = new KeyedButton("атака".Prepare(), Keys.A);
+        _attackButton.Position = new Point(0, height - 1);
+        _attackButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Attack((Actor)GetAttackTarget()));
+        Controls.Add(_attackButton);
         
         
         _moveButton = new KeyedButton(string.Empty, Keys.Right)
@@ -44,6 +44,12 @@ public class FightScreen: BaseScreen
         }
         
         Update();
+    }
+
+    private IActor? GetAttackTarget()
+    {
+        return _fightProcess.Enemies.SingleOrDefault(x =>
+            x.LocalPosition.X == _fightProcess.Player.LocalPosition.X + 1);
     }
 
     public void Update()
@@ -108,5 +114,7 @@ public class FightScreen: BaseScreen
             _moveButton.IsEnabled = true;
             Controls.Add(_moveButton);
         }
+
+        _attackButton.IsEnabled = GetAttackTarget() is not null;
     }
 }

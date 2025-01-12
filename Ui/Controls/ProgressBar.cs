@@ -13,6 +13,7 @@ public class ProgressBar: ControlBase
     public ProgressBar(int width, int height, ILimitedValue<int> value) : base(width, height)
     {
         _value = value;
+        CanFocus = false;
     }
 
     public override void UpdateAndRedraw(TimeSpan time)

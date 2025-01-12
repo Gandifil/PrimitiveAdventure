@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using SadConsole.Effects;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
 
@@ -25,7 +26,7 @@ public class KeyedButton: Button
 
     public bool ForceProcessKeyboard(Keyboard info)
     {
-        if (info.IsKeyReleased(Key))
+        if (IsEnabled && info.IsKeyReleased(Key))
         {
             OnClick();
             return true;
