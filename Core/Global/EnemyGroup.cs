@@ -12,7 +12,10 @@ public class EnemyGroup: IGlobalMapCell
 
     public void OnCollisionWith(Player player)
     {
+        Game.Instance.Screen.IsFocused = false;
         Game.Instance.Screen = new FightScreen(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT,
             new FightProcess(player, Enemies));
+        Game.Instance.Screen.IsFocused = true;
+        
     }
 }
