@@ -73,7 +73,7 @@ public class MapScreen: BaseScreen
         {
             var animation = Animations.ForEnemyGroup();
             animation.Position = new Point(rect.X + 1, rect.Y + 1);
-            Start(animation);
+            StartAnimation(animation);
         }
         if (string.IsNullOrEmpty(resource))
             Cursor

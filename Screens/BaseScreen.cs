@@ -12,7 +12,14 @@ public abstract class BaseScreen: ControlsConsole
         Cursor.PrintAppearanceMatchesHost = false;
     }
 
-    protected void Start(AnimatedScreenObject animation)
+    public void Start()
+    {
+        Game.Instance.Screen.IsFocused = false;
+        Game.Instance.Screen = this;
+        Game.Instance.Screen.IsFocused = true;
+    }
+
+    protected void StartAnimation(AnimatedScreenObject animation)
     {
         Children.Add(animation);
         animation.Start();
