@@ -17,6 +17,7 @@ public class FightScreen: BaseScreen
     private readonly Button _attackButton;
     private readonly Button _moveButton;
     private readonly Dictionary<IActor, Panel> _enemyPanels  = new();
+    private readonly PlayerPanel _playerPanel;
     
     public FightScreen(int width, int height, FightProcess fightProcess) : base(width, height)
     {
@@ -27,13 +28,14 @@ public class FightScreen: BaseScreen
         _attackButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Attack((Actor)GetAttackTarget()));
         Controls.Add(_attackButton);
         
-        
         _moveButton = new KeyedButton(string.Empty, Keys.Right)
         {
             ShowEnds = false,
         };
         _moveButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(Movement.Right);
-        
+
+        _playerPanel = new PlayerPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, _fightProcess.Player);
+        Controls.Add(_playerPanel);
         foreach (var enemy in _fightProcess.Team2)
         {
             var panel = new EnemyPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, enemy);
@@ -96,17 +98,8 @@ public class FightScreen: BaseScreen
     private void DrawPlayer()
     {
         var (x, y) = _fightProcess.Player.LocalPosition;
-        var rect = new Rectangle(CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH + 1, CELL_HEIGHT + 1);
-        var lines = Services.Resources.Load<IEnumerable<string>>(_fightProcess.Player.Resource!);
-
-        Cursor.Move(rect.X + 1, rect.Y + 1)
-            .SetPrintAppearance(Color.Green);
-        foreach (var line in lines)
-        {
-            Cursor.Print(line);
-            Cursor.Row++;
-            Cursor.Column = rect.X + 1;
-        }
+        var rect = new Rectangle(CELL_WIDTH * x + 1, CELL_HEIGHT * y + 1, CELL_WIDTH + 1, CELL_HEIGHT + 1);
+        _playerPanel.Position = rect.Position;
 
         var movePosition = _fightProcess.Player.LocalPosition + (1, 0);
         
