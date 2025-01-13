@@ -1,12 +1,14 @@
-﻿namespace PrimitiveAdventure.Core.Rpg.Abilities;
+﻿using PrimitiveAdventure.Ui;
 
-public interface IAbility
+namespace PrimitiveAdventure.Core.Rpg.Abilities;
+
+public interface IAbility: INamed
 {
-    string Name { get; }
+    string Description { get; }
     
     CostData Cost { get; }
     
-    string Description { get; }
-    
-    void Apply(Actor p);
+    bool IsUsable(IPlayer p);
+
+    void Use(Actor? target);
 }

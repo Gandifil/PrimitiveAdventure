@@ -1,5 +1,6 @@
 ﻿using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.Core.Rpg;
+using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 
 namespace PrimitiveAdventure.Core;
@@ -21,5 +22,7 @@ public class Player: Actor, IPlayer
     public Player()
     {
         Direction = 1;
+        Abilities.Add(new SelfHeal(this));
+        Abilities.Add(new DoubleStrike(this));
     }
 }
