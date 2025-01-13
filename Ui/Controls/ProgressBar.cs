@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using PrimitiveAdventure.Core.Rpg.Utils;
+using SadConsole.Effects;
 using SadConsole.UI;
 using SadConsole.UI.Controls;
 
@@ -30,9 +31,18 @@ public class ProgressBar: ControlBase
             appearance.Background,
             appearance.Glyph, null);
 
-        var highlightedWidth = Width * _value.Value / _value.MaxValue;
+        var highlightedWidth = Width * _value.Value.Value / _value.MaxValue.Value;
         
         Surface.Fill(0, 0, highlightedWidth, 
             appearance.Foreground, appearance.Background, 176);
+        Surface.SetEffect(Surface.GetCells(Surface.Area), new Blinker()
+        {
+            // Blink forever
+            Duration = System.TimeSpan.MaxValue,
+            BlinkOutForegroundColor = Color.Black,
+            // Every half a second
+            BlinkSpeed = TimeSpan.FromMilliseconds(500),
+            RunEffectOnApply = true
+        });
     }
 }

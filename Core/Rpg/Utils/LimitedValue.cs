@@ -1,23 +1,36 @@
 ﻿namespace PrimitiveAdventure.Core.Rpg.Utils;
 
-public interface ILimitedValue<out T> where T : IComparable<T>
+public interface ILimitedValue<T> where T : IComparable<T>, IEquatable<T>
 {
-    T Value { get; }
-    T MaxValue { get; }
+    IObservedValue<T> Value { get; }
+    IObservedValue<T> MaxValue { get; }
+    float Progress { get; }
+    event Action Changed;
 }
 
-public class LimitedValue<T> : ILimitedValue<T> where T : IComparable<T>, new()
+public class LimitedValue<T> : ILimitedValue<T> where T : IComparable<T>, IEquatable<T>, IConvertible, new()
 {
-    private T _value;
+    private ObservedValue<T> _value;
+
     public T Value { 
-        get => _value; 
-        set => _value = Max(new(), Min(MaxValue, value)); }
-    public T MaxValue { get; set; }
+        get => _value.Value; 
+        set => _value.Value = Max(new(), Min(MaxValue.Value, value)); }
+
+    IObservedValue<T> ILimitedValue<T>.Value { get; }
+    IObservedValue<T> ILimitedValue<T>.MaxValue => MaxValue;
+    public float Progress => (float)Convert.ToDouble(_value.Value) / (float)Convert.ToDouble(MaxValue.Value);
+
+    public ObservedValue<T> MaxValue { get; }
+
+    public event Action? Changed;
 
     public LimitedValue(T initialValue)
     {
-        _value = initialValue;
-        MaxValue = initialValue;
+        _value = new ObservedValue<T>(initialValue);
+        MaxValue = new ObservedValue<T>(initialValue);
+        
+        _value.Changed += (_, _) => Changed?.Invoke();
+        MaxValue.Changed += (_, _) => Changed?.Invoke();
     }
     
     static T Min(T x1, T x2)

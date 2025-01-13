@@ -18,6 +18,8 @@ public interface IActor
     int Direction { get; }
     
     bool IsAlive { get; }
+
+    event Action Attacked;
 }
 
 public abstract class Actor : IActor
@@ -38,5 +40,13 @@ public abstract class Actor : IActor
     public void Attack(Actor target)
     {
         target.Health.Value -= Damage;
+        target.OnAttacked();
+    }
+
+    public event Action Attacked;
+
+    private void OnAttacked()
+    {
+        Attacked?.Invoke();
     }
 }
