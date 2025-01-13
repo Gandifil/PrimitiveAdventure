@@ -20,5 +20,6 @@ public class Player: Actor, IPlayer
 
     public Player()
     {
+        Direction = 1;
     }
 }

@@ -1,12 +1,10 @@
-﻿using System.Diagnostics;
-using PrimitiveAdventure.Core.Rpg;
+﻿using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.Ui;
 using PrimitiveAdventure.Ui.Controls;
 using PrimitiveAdventure.Utils;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
-using ProgressBar = PrimitiveAdventure.Ui.Controls.ProgressBar;
 
 namespace PrimitiveAdventure.Screens;
 
@@ -36,7 +34,7 @@ public class FightScreen: BaseScreen
         };
         _moveButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(Movement.Right);
         
-        foreach (var enemy in _fightProcess.Enemies)
+        foreach (var enemy in _fightProcess.Team2)
         {
             var panel = new EnemyPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, enemy);
             _enemyPanels.Add(enemy, panel);
@@ -44,11 +42,20 @@ public class FightScreen: BaseScreen
         }
         
         Update();
+            // this.SetEffect(Surface.GetCells(Surface.Area), new Blinker()
+            // {
+            //     // Blink forever
+            //     Duration = System.TimeSpan.MaxValue,
+            //     BlinkOutForegroundColor = Color.Black,
+            //     // Every half a second
+            //     BlinkSpeed = TimeSpan.FromMilliseconds(500),
+            //     RunEffectOnApply = true
+            // });
     }
 
     private IActor? GetAttackTarget()
     {
-        return _fightProcess.Enemies.SingleOrDefault(x =>
+        return _fightProcess.Team2.SingleOrDefault(x =>
             x.LocalPosition.X == _fightProcess.Player.LocalPosition.X + 1);
     }
 
@@ -64,7 +71,7 @@ public class FightScreen: BaseScreen
 
     private void DrawEnemies()
     {
-        foreach (var enemy in _fightProcess.Enemies)
+        foreach (var enemy in _fightProcess.Team2)
             DrawEnemy(enemy);
     }
 

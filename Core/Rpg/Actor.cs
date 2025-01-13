@@ -15,6 +15,8 @@ public interface IActor
     
     int Damage { get; }
     
+    int Direction { get; }
+    
     bool IsAlive { get; }
 }
 
@@ -27,7 +29,8 @@ public abstract class Actor : IActor
     public IControllable Controller { get; set; }
 
     public int Damage { get; } = 1;
-    
+    public int Direction { get; set; } = -1;
+
     public bool IsAlive => Health.Value > 0;
     
     ILimitedValue<int> IActor.Health => Health;
