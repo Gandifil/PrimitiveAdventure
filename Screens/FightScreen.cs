@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg;
+using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.Ui;
 using PrimitiveAdventure.Ui.Controls;
@@ -15,6 +16,7 @@ public class FightScreen: BaseScreen
     
     private readonly FightProcess _fightProcess;
     private readonly Button _attackButton;
+    private readonly Button _abilitiesButton;
     private readonly Button _moveButton;
     private readonly Dictionary<IActor, Panel> _enemyPanels  = new();
     private readonly PlayerPanel _playerPanel;
@@ -27,6 +29,19 @@ public class FightScreen: BaseScreen
         _attackButton.Position = new Point(0, height - 1);
         _attackButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Attack((Actor)GetAttackTarget()));
         Controls.Add(_attackButton);
+
+        _abilitiesButton = new KeyedButton("способности".Prepare(), Keys.S);
+        _abilitiesButton.Position = new Point(12, height - 1);
+        _abilitiesButton.Click += (_, __) =>
+        {
+            var ability = new AbilityChooseScreen(width, height, _fightProcess.Player.Abilities)
+            {
+                NextScreen = this,
+            };
+            ability.SelectedSuccessfully += AbilityOnSelectedSuccessfully;
+            ability.Start();
+        };
+        Controls.Add(_abilitiesButton);
         
         _moveButton = new KeyedButton(string.Empty, Keys.Right)
         {
@@ -44,15 +59,11 @@ public class FightScreen: BaseScreen
         }
         
         Update();
-            // this.SetEffect(Surface.GetCells(Surface.Area), new Blinker()
-            // {
-            //     // Blink forever
-            //     Duration = System.TimeSpan.MaxValue,
-            //     BlinkOutForegroundColor = Color.Black,
-            //     // Every half a second
-            //     BlinkSpeed = TimeSpan.FromMilliseconds(500),
-            //     RunEffectOnApply = true
-            // });
+    }
+
+    private void AbilityOnSelectedSuccessfully(IAbility ability)
+    {
+        _fightProcess.Player.Control.SetMove(new UseAbility(ability));
     }
 
     private IActor? GetAttackTarget()
