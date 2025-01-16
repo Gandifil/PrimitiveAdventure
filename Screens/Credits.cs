@@ -17,7 +17,7 @@ public class Credits: Console
             "Made for www.igdc.ru"
         };
         var typingInstruction = new SadConsole.Instructions.DrawString(SadConsole.ColoredString.Parser.Parse(string.Join("\r\n", text)));
-        typingInstruction.TotalTimeToPrint = TimeSpan.FromSeconds(4); // 0.5 seconds per line of text
+        typingInstruction.TotalTimeToPrint = TimeSpan.FromSeconds(4); 
 
         Cursor.Position = new Point(1, 1);
         Cursor.IsEnabled = false;
