@@ -6,6 +6,7 @@ public static class StringExtensions
     {
         char transform(char c)
         {
+            c = char.ToLower(c);
             var k = c - 'а';
             return (char)(128 + k);
         }
