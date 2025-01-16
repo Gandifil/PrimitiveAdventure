@@ -5,14 +5,14 @@ using SadConsole.Input;
 
 namespace PrimitiveAdventure.Screens;
 
-public class GlobalModeScreen: Console 
+public class GlobalModeScreen: GlobalScreen 
 {
     private readonly GameState _gameState;
     private readonly MapScreen _mapScreen;
 
     private const int SEPARATE_SCREEN_WIDTH = 30;
     
-    public GlobalModeScreen(GameState gameState) : base(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT)
+    public GlobalModeScreen(GameState gameState)
     {
         _gameState = gameState;
         
