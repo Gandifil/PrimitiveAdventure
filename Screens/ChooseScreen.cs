@@ -1,4 +1,5 @@
-﻿using PrimitiveAdventure.Ui;
+﻿using PrimitiveAdventure.Screens.Base;
+using PrimitiveAdventure.Ui;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
@@ -8,6 +9,7 @@ namespace PrimitiveAdventure.Screens;
 public class ChooseScreen<T>: BaseScreen where T: class, INamed
 {
     private readonly IReadOnlyCollection<T> _elements;
+    protected IEntityView<T> _entityView;
     //private readonly TextBox _description;
     
     public T? Selected { get; private set; }
@@ -81,11 +83,6 @@ public class ChooseScreen<T>: BaseScreen where T: class, INamed
     private void ListOnSelectedItemChanged(object? sender, ListBox.SelectedItemEventArgs e)
     {
         Selected = (T)e.Item!;
-
-        UpdateDescription();
-    }
-
-    protected virtual void UpdateDescription()
-    {
+        _entityView.Set(Selected);
     }
 }
