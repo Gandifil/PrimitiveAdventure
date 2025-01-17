@@ -6,9 +6,11 @@ public interface IAbility: INamed
 {
     string Description { get; }
     
+    TargetKind TargetKind { get; }
+    
+    bool TargetIsRequired { get; }
+    
     CostData Cost { get; }
     
-    bool IsUsable(IPlayer p);
-
-    void Use(Actor? target);
+    bool IsUsableBy(IActor p);
 }

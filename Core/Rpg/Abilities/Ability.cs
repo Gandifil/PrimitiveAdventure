@@ -1,4 +1,6 @@
-﻿namespace PrimitiveAdventure.Core.Rpg.Abilities;
+﻿using System.Diagnostics;
+
+namespace PrimitiveAdventure.Core.Rpg.Abilities;
 
 public abstract class Ability: IAbility
 {
@@ -9,21 +11,25 @@ public abstract class Ability: IAbility
         _owner = owner;
     }
 
-    public string Name { get; protected set; }
+    public string Name { get; protected init; }
     
-    public string Description { get; protected set; }
-    
+    public string Description { get; protected init; }
+    public TargetKind TargetKind { get; protected init; }
+    public bool TargetIsRequired => TargetKind != TargetKind.None;
+
     public CostData Cost { get; protected set;}
     
-    public bool IsUsable(IPlayer p)
+    public bool IsUsableBy(IActor p)
     {
-        return _owner.Health.Value > Cost.Health 
-               && _owner.Magic.Value > Cost.Magic
-               && _owner.Stamina.Value > Cost.Stamina;
+        return _owner.Health.Value >= Cost.Health 
+               && _owner.Magic.Value >= Cost.Magic
+               && _owner.Stamina.Value >= Cost.Stamina;
     }
 
     public void Use(Actor? target)
     {
+        Debug.Assert(IsUsableBy(_owner));
+        Debug.Assert(target is null && TargetIsRequired);
         Pay();
         Impact(target);
     }

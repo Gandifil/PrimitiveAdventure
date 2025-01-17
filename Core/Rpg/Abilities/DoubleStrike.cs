@@ -6,6 +6,7 @@ public class DoubleStrike: Ability
     {
         Name = "двойной удар";
         Description = $"наносит 5 урона цели";
+        TargetKind = TargetKind.Enemy;
         Cost = new CostData(Stamina: 1);
     }
 
