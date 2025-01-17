@@ -16,5 +16,7 @@ public class EnemyPanel: ActorPanel
         newColors.RebuildAppearances();
         SetThemeColors(newColors);
         Controls.ForEach(x => x.SetThemeColors(newColors));
+        
+        
     }
 }

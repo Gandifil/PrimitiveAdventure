@@ -21,7 +21,7 @@ public class MyProgressBar: SadConsole.UI.Controls.ProgressBar
     public override void UpdateAndRedraw(TimeSpan time)
     {
         Surface.Effects.UpdateEffects(time);
-        IsDirty = true;
+        //IsDirty = true;
         base.UpdateAndRedraw(time);
         Surface.SetEffect(Surface.GetCells(Surface.Area), _effect);
     }

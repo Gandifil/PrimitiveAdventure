@@ -35,14 +35,14 @@ public class ProgressBar: ControlBase
         
         Surface.Fill(0, 0, highlightedWidth, 
             appearance.Foreground, appearance.Background, 176);
-        Surface.SetEffect(Surface.GetCells(Surface.Area), new Blinker()
-        {
-            // Blink forever
-            Duration = System.TimeSpan.MaxValue,
-            BlinkOutForegroundColor = Color.Black,
-            // Every half a second
-            BlinkSpeed = TimeSpan.FromMilliseconds(500),
-            RunEffectOnApply = true
-        });
+        // Surface.SetEffect(Surface.GetCells(Surface.Area), new Blinker()
+        // {
+        //     // Blink forever
+        //     Duration = System.TimeSpan.MaxValue,
+        //     BlinkOutForegroundColor = Color.Black,
+        //     // Every half a second
+        //     BlinkSpeed = TimeSpan.FromMilliseconds(500),
+        //     RunEffectOnApply = true
+        // });
     }
 }
