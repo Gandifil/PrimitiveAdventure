@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using SadConsole;
+using SadConsole.Instructions;
 
 namespace PrimitiveAdventure.Screens;
 
@@ -16,7 +18,7 @@ public class Credits: Console
             string.Empty,
             "Made for www.igdc.ru"
         };
-        var typingInstruction = new SadConsole.Instructions.DrawString(SadConsole.ColoredString.Parser.Parse(string.Join("\r\n", text)));
+        var typingInstruction = new DrawString(ColoredString.Parser.Parse(string.Join("\r\n", text)));
         typingInstruction.TotalTimeToPrint = TimeSpan.FromSeconds(4); 
 
         Cursor.Position = new Point(1, 1);

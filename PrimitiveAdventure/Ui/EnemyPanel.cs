@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.UI;
 using SadConsole.UI.Controls;
@@ -14,9 +15,6 @@ public class EnemyPanel: ActorPanel
         Colors newColors = Colors.Default.Clone();
         newColors.ControlForegroundNormal.SetColor(Color.Red);
         newColors.RebuildAppearances();
-        SetThemeColors(newColors);
-        Controls.ForEach(x => x.SetThemeColors(newColors));
-        
-        
+        this.SetThemeColorsForControls(newColors);
     }
 }

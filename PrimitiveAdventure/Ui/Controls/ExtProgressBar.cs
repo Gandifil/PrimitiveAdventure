@@ -7,11 +7,11 @@ using SadConsole.UI.Controls;
 namespace PrimitiveAdventure.Ui.Controls;
 
 [DataContract]
-public class ProgressBar: ControlBase
+public class ExtProgressBar: ControlBase
 {
     private readonly ILimitedValue<int> _value;
         
-    public ProgressBar(int width, int height, ILimitedValue<int> value) : base(width, height)
+    public ExtProgressBar(int width, int height, ILimitedValue<int> value) : base(width, height)
     {
         _value = value;
         CanFocus = false;

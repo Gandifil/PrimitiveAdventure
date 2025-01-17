@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>PrimitiveAdventure</RootNamespace>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>PrimitiveAdventure</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +32,10 @@
     <None Update="Resources\Fonts\Cheepicus_12x12_cyr2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PrimitiveAdventure.SadConsole\PrimitiveAdventure.SadConsole.csproj" />
   </ItemGroup>
 
 </Project>

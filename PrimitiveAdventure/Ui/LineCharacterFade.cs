@@ -1,14 +1,15 @@
 ﻿using SadConsole.Components;
 using SadConsole.Instructions;
+using SadConsole.Effects;
 
 namespace PrimitiveAdventure.Ui;
 
 public class LineCharacterFade : InstructionBase
 {
-    private SadConsole.Effects.ICellEffect _effect;
+    private ICellEffect _effect;
 
     private ColoredString[] _lines;
-    private SadConsole.Instructions.DrawString[] _lineDrawers;
+    private DrawString[] _lineDrawers;
     private TimeSpan _totalTimeToPrint;
 
     public LineCharacterFade(TimeSpan totalTimeToPrint)
@@ -16,7 +17,7 @@ public class LineCharacterFade : InstructionBase
         RemoveOnFinished = true;
         _totalTimeToPrint = totalTimeToPrint;
 
-        _effect = new SadConsole.Effects.Fade()
+        _effect = new Fade()
         {
             FadeForeground = true,
             DestinationForeground = new Gradient(new[] { Color.Violet, Color.Black, Color.Gray, Color.Purple }, new[] { 0.0f, 0.01f, 0.5f, 1.0f }),
@@ -51,7 +52,7 @@ public class LineCharacterFade : InstructionBase
         if (host is not IScreenSurface obj) throw new ArgumentException($"Instruction can only be added to {nameof(IScreenSurface)}");
 
         _lines = new ColoredString[obj.Surface.Height];
-        _lineDrawers = new SadConsole.Instructions.DrawString[obj.Surface.Height];
+        _lineDrawers = new DrawString[obj.Surface.Height];
 
         for (int i = 0; i < _lines.Length; i++)
         {
@@ -62,7 +63,7 @@ public class LineCharacterFade : InstructionBase
             ColoredString coloredString = obj.Surface.GetStringColored(0, i, stringLength);
             coloredString.SetEffect(_effect);
             coloredString.IgnoreEffect = false;
-            _lineDrawers[i] = new SadConsole.Instructions.DrawString(coloredString);
+            _lineDrawers[i] = new DrawString(coloredString);
             _lineDrawers[i].TotalTimeToPrint = _totalTimeToPrint;
             _lineDrawers[i].Position = (0, i);
             _lineDrawers[i].Cursor = new Cursor(obj.Surface)
@@ -79,6 +80,6 @@ public class LineCharacterFade : InstructionBase
     public override void OnRemoved(IScreenObject host)
     {
         _lines = Array.Empty<ColoredString>();
-        _lineDrawers = Array.Empty<SadConsole.Instructions.DrawString>();
+        _lineDrawers = Array.Empty<DrawString>();
     }
 }

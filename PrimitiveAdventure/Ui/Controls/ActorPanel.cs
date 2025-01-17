@@ -13,7 +13,7 @@ public class ActorPanel: Panel
     {
         _actor = actor;
          
-        var pb = new MyProgressBar(width, 1, HorizontalAlignment.Left)
+        var pb = new MyExtProgressBar(width, 1, HorizontalAlignment.Left)
         {
             Position = (0, height - 1),
             Progress = actor.Health.Progress,

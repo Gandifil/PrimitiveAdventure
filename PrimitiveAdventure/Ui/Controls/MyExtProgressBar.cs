@@ -3,11 +3,11 @@ using SadConsole.UI.Controls;
 
 namespace PrimitiveAdventure.Ui.Controls;
 
-public class MyProgressBar: SadConsole.UI.Controls.ProgressBar
+public class MyExtProgressBar: ProgressBar
 {
     private readonly Blinker _effect;
 
-    public MyProgressBar(int width, int height, HorizontalAlignment horizontalAlignment) : base(width, height, horizontalAlignment)
+    public MyExtProgressBar(int width, int height, HorizontalAlignment horizontalAlignment) : base(width, height, horizontalAlignment)
     {
         _effect = new Blinker()
         {
