@@ -13,14 +13,16 @@ public class FightProcess
     private readonly List<Actor> _team2;
     private readonly List<Actor> _all;
 
+    private readonly FightMapView _fightMapViewTeam1;
     private readonly FightMapView _fightMapViewTeam2;
 
     public IPlayer Player => _player;
     public IReadOnlyCollection<Actor> Team1 => _team1.AsReadOnly();
     public IReadOnlyCollection<Actor> Team2 => _team2.AsReadOnly();
     public IReadOnlyCollection<Actor> All => _all.AsReadOnly();
+    public IFightMapView MapTeam1 => _fightMapViewTeam1;
     
-    
+    public IFightMapView MapTeam2 => _fightMapViewTeam2;
 
     public FightProcess(Player player, IEnumerable<Actor> enemies)
     {
@@ -35,6 +37,7 @@ public class FightProcess
         Debug.Assert(Team2.Count > 0);
         Debug.Assert(Team2.Count <= MAP_HEIGHT);
 
+        _fightMapViewTeam1 = new FightMapView(this, false);
         _fightMapViewTeam2 = new FightMapView(this, true);
         for (int i = 0; i < _team2.Count; i++)
         {

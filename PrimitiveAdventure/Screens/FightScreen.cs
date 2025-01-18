@@ -1,12 +1,10 @@
-﻿using PrimitiveAdventure.Core.Rpg;
+﻿using System.Diagnostics;
+using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.SadConsole.Screens;
-using PrimitiveAdventure.Ui;
 using PrimitiveAdventure.Ui.Controls;
-using PrimitiveAdventure.Utils;
-using SadConsole.Components;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
 
@@ -57,6 +55,7 @@ public class FightScreen: BaseScreen
         foreach (var enemy in _fightProcess.Team2)
         {
             var panel = new EnemyPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, enemy);
+            panel.Click += PanelOnClick;
             _enemyPanels.Add(enemy, panel);
             Children.Add(panel);
         }
@@ -67,17 +66,52 @@ public class FightScreen: BaseScreen
 
     private void AbilityOnSelectedSuccessfully(IAbility ability)
     {
+        _selectedAbility = ability;
         if (ability.TargetIsRequired)
         {
             //SadComponents.Add(new SelectTargetMode());
-            if (ability.TargetKind.HasFlag(TargetKind.Enemy))
-                foreach (var (_, panel) in _enemyPanels)
-                {
-                    panel.CanBeSelected = true;
-                }
+            var items = _fightProcess.MapTeam1.AllWhere(ability.TargetKind);
+            if (items.Count > 0)
+                StartSelectMode(items);
+            // else if (items.Count == 1)
+            //     _fightProcess.Player.Control.SetMove(new UseAbility(ability, items.First()));
+            else
+            {
+                Debug.Assert(false);
+            }
         }
         else
             _fightProcess.Player.Control.SetMove(new UseAbility(ability));
+    }
+    
+    private IAbility _selectedAbility;
+
+    private void StartSelectMode(IReadOnlyCollection<IActor> items)
+    {
+        foreach (var actor in items)
+            if (_enemyPanels.TryGetValue(actor, out var panel))
+            {
+                panel.CanBeSelected = true;
+                panel.CanClick = true;
+            }
+        
+        // TODO: add player or refactor
+    }
+
+    private void PanelOnClick(object? sender, EventArgs e)
+    {
+        var panel = (ActorPanel)sender!;
+        _fightProcess.Player.Control.SetMove(new UseAbility(_selectedAbility, panel.Actor));
+        StopSelectMode();
+    }
+
+    private void StopSelectMode()
+    {
+        foreach (var (_, panel) in _enemyPanels)
+        {
+            panel.CanBeSelected = false;
+            panel.CanClick = false;
+        }
     }
 
     private IActor? GetAttackTarget()
@@ -143,27 +177,3 @@ public class FightScreen: BaseScreen
         _attackButton.IsEnabled = GetAttackTarget() is not null;
     }
 }
-
-// internal class SelectTargetMode : LogicComponent
-// {
-//     public override void OnAdded(IScreenObject host)
-//     {
-//         host.
-//         base.OnAdded(host);
-//     }
-//
-//     public override void OnRemoved(IScreenObject host)
-//     {
-//         base.OnRemoved(host);
-//     }
-//
-//     public override void Render(IScreenObject host, TimeSpan delta)
-//     {
-//         throw new NotImplementedException();
-//     }
-//
-//     public override void Update(IScreenObject host, TimeSpan delta)
-//     {
-//         throw new NotImplementedException();
-//     }
-// }

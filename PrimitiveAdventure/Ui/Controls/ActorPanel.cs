@@ -3,7 +3,7 @@ using PrimitiveAdventure.SadConsole.Screens;
 
 namespace PrimitiveAdventure.Ui.Controls;
 
-public class ActorPanel: SelectableScreen
+public class ActorPanel: ClickableScreen
 {
     private readonly IActor _actor;
     

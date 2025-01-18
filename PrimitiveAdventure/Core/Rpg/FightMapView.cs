@@ -1,13 +1,37 @@
-﻿namespace PrimitiveAdventure.Core.Rpg;
+﻿using PrimitiveAdventure.Core.Rpg.Abilities;
 
-public class FightMapView
+namespace PrimitiveAdventure.Core.Rpg;
+
+public class IFightMapView
+{
+    public IReadOnlyCollection<IActor> Friends { get; }
+    
+    public IReadOnlyCollection<IActor> Enemies { get; }
+    
+    public IReadOnlyCollection<IActor> All { get; }
+    
+    bool IsInverted { get; }
+
+    public IReadOnlyCollection<IActor> AllWhere(TargetKind targetKind)
+    {
+        switch (targetKind)
+        {
+            case TargetKind.Enemy: return Enemies;
+            case TargetKind.Friend: return Friends;
+            case TargetKind.Enemy | TargetKind.Friend: return All;
+            default: return Array.Empty<IActor>();
+        }
+    }
+}
+
+public class FightMapView: IFightMapView
 {
     
     public IReadOnlyCollection<Actor> Friends { get; }
     
-    public IReadOnlyCollection<Actor> Enemies { get; private set; }
+    public IReadOnlyCollection<Actor> Enemies { get; }
     
-    public IReadOnlyCollection<Actor> All { get; set; }
+    public IReadOnlyCollection<Actor> All { get; }
 
     private readonly FightProcess _fightProcess;
 
@@ -28,5 +52,7 @@ public class FightMapView
             Enemies = fightProcess.Team2;
             Friends = fightProcess.Team1;
         }
+
+        All = _fightProcess.All;
     }
 }
