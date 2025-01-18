@@ -1,6 +1,6 @@
 ﻿using PrimitiveAdventure.SadConsole.Screens;
 
-namespace PrimitiveAdventure.Screens;
+namespace PrimitiveAdventure.Screens.Base;
 
 public class GlobalScreen: BaseScreen
 {

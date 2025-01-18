@@ -1,4 +1,5 @@
-﻿using PrimitiveAdventure.Screens.Views;
+﻿using PrimitiveAdventure.Screens.Base;
+using PrimitiveAdventure.Screens.Views;
 using SadConsole.UI.Controls;
 
 namespace PrimitiveAdventure.Screens;

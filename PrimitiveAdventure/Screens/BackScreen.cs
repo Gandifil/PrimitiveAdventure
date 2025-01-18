@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.SadConsole.Controls;
+using PrimitiveAdventure.Screens.Base;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
 

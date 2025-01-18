@@ -1,5 +1,6 @@
 ﻿using System.IO.MemoryMappedFiles;
 using PrimitiveAdventure.Core;
+using PrimitiveAdventure.Screens.Base;
 using SadConsole.Components;
 using SadConsole.Input;
 
