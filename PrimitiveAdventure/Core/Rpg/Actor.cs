@@ -18,6 +18,8 @@ public interface IActor
     
     IReadOnlyList<IAbility> Abilities { get; }
     
+    IParameters Parameters { get; }
+    
     IControllable Controller { get; }
     
     int Damage { get; }
@@ -41,10 +43,16 @@ public abstract class Actor : IActor
     public LimitedValue<int> Stamina { get; } = new(10);
 
     public List<Ability> Abilities { get; } = new ();
+    
+    public Parameters Parameters { get; } = new();
+
+    IParameters IActor.Parameters => Parameters;
+    
     IReadOnlyList<IAbility> IActor.Abilities => Abilities.AsReadOnly();
+    
     public IControllable Controller { get; set; }
 
-    public int Damage { get; } = 1;
+    public virtual int Damage { get; } = 1;
     public int Direction { get; set; } = -1;
 
     public bool IsAlive => Health.Value > 0;

@@ -13,8 +13,8 @@ namespace PrimitiveAdventure.Screens;
 
 public class FightScreen: BaseScreen
 {
-    const int CELL_WIDTH = 20;
-    const int CELL_HEIGHT = 8;
+    const int CELL_WIDTH = 24;
+    const int CELL_HEIGHT = 10;
     
     private readonly FightProcess _fightProcess;
     private readonly Button _attackButton;
