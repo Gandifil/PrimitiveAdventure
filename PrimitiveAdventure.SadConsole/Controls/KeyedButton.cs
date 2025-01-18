@@ -1,9 +1,8 @@
 ﻿using System.Runtime.Serialization;
-using SadConsole.Effects;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
 
-namespace PrimitiveAdventure.Ui.Controls;
+namespace PrimitiveAdventure.SadConsole.Controls;
 
 public class KeyedButton: Button
 {

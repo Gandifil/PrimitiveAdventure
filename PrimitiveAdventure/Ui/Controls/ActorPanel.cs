@@ -1,9 +1,9 @@
 ﻿using PrimitiveAdventure.Core.Rpg;
-using SadConsole.UI.Controls;
+using PrimitiveAdventure.SadConsole.Screens;
 
 namespace PrimitiveAdventure.Ui.Controls;
 
-public class ActorPanel: Panel
+public class ActorPanel: SelectableScreen
 {
     private readonly IActor _actor;
     
@@ -13,12 +13,12 @@ public class ActorPanel: Panel
     {
         _actor = actor;
          
-        var pb = new MyExtProgressBar(width, 1, HorizontalAlignment.Left)
+        var pb = new MyProgressBar(width, 1, HorizontalAlignment.Left)
         {
             Position = (0, height - 1),
             Progress = actor.Health.Progress,
         };
-        Add(pb);
+        Controls.Add(pb);
 
         actor.Health.Changed += () => pb.Progress = actor.Health.Progress;
     }

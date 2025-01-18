@@ -1,4 +1,6 @@
-﻿namespace PrimitiveAdventure.Screens;
+﻿using PrimitiveAdventure.SadConsole.Screens;
+
+namespace PrimitiveAdventure.Screens;
 
 public class GlobalScreen: BaseScreen
 {

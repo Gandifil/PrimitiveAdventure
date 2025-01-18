@@ -3,11 +3,11 @@ using SadConsole.UI.Controls;
 
 namespace PrimitiveAdventure.Ui.Controls;
 
-public class MyExtProgressBar: ProgressBar
+public class MyProgressBar: ProgressBar
 {
     private readonly Blinker _effect;
 
-    public MyExtProgressBar(int width, int height, HorizontalAlignment horizontalAlignment) : base(width, height, horizontalAlignment)
+    public MyProgressBar(int width, int height, HorizontalAlignment horizontalAlignment) : base(width, height, horizontalAlignment)
     {
         _effect = new Blinker()
         {
@@ -16,13 +16,14 @@ public class MyExtProgressBar: ProgressBar
             BlinkSpeed = TimeSpan.FromMilliseconds(200),
             RunEffectOnApply = true
         };
+        
     }
 
     public override void UpdateAndRedraw(TimeSpan time)
     {
-        Surface.Effects.UpdateEffects(time);
-        //IsDirty = true;
+        //Surface.Effects.UpdateEffects(time);
+        IsDirty = true;
         base.UpdateAndRedraw(time);
-        Surface.SetEffect(Surface.GetCells(Surface.Area), _effect);
+        //Surface.SetEffect(Surface.GetCells(Surface.Area), _effect);
     }
 }

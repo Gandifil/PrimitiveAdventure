@@ -1,8 +1,8 @@
 ﻿using SadConsole.Components;
-using SadConsole.Instructions;
 using SadConsole.Effects;
+using SadConsole.Instructions;
 
-namespace PrimitiveAdventure.Ui;
+namespace PrimitiveAdventure.SadConsole.Effects;
 
 public class LineCharacterFade : InstructionBase
 {

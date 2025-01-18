@@ -1,6 +1,6 @@
 ﻿using SadConsole.UI.Controls;
 
-namespace PrimitiveAdventure.Ui;
+namespace PrimitiveAdventure.SadConsole;
 
 public static class PanelExtensions
 {

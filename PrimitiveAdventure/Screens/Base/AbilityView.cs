@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
+using PrimitiveAdventure.SadConsole.Effects;
 using PrimitiveAdventure.Ui;
 
 namespace PrimitiveAdventure.Screens.Base;

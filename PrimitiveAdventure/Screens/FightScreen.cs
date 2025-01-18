@@ -1,9 +1,12 @@
 ﻿using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
+using PrimitiveAdventure.SadConsole.Controls;
+using PrimitiveAdventure.SadConsole.Screens;
 using PrimitiveAdventure.Ui;
 using PrimitiveAdventure.Ui.Controls;
 using PrimitiveAdventure.Utils;
+using SadConsole.Components;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
 
@@ -18,7 +21,7 @@ public class FightScreen: BaseScreen
     private readonly Button _attackButton;
     private readonly Button _abilitiesButton;
     private readonly Button _moveButton;
-    private readonly Dictionary<IActor, Panel> _enemyPanels  = new();
+    private readonly Dictionary<IActor, EnemyPanel> _enemyPanels  = new();
     private readonly PlayerPanel _playerPanel;
     
     public FightScreen(int width, int height, FightProcess fightProcess) : base(width, height)
@@ -50,20 +53,31 @@ public class FightScreen: BaseScreen
         _moveButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(Movement.Right);
 
         _playerPanel = new PlayerPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, _fightProcess.Player);
-        Controls.Add(_playerPanel);
+        Children.Add(_playerPanel);
         foreach (var enemy in _fightProcess.Team2)
         {
             var panel = new EnemyPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, enemy);
             _enemyPanels.Add(enemy, panel);
-            Controls.Add(panel);
+            Children.Add(panel);
         }
         
         Update();
+        IsDirty = true;
     }
 
     private void AbilityOnSelectedSuccessfully(IAbility ability)
     {
-        _fightProcess.Player.Control.SetMove(new UseAbility(ability));
+        if (ability.TargetIsRequired)
+        {
+            //SadComponents.Add(new SelectTargetMode());
+            if (ability.TargetKind.HasFlag(TargetKind.Enemy))
+                foreach (var (_, panel) in _enemyPanels)
+                {
+                    panel.CanBeSelected = true;
+                }
+        }
+        else
+            _fightProcess.Player.Control.SetMove(new UseAbility(ability));
     }
 
     private IActor? GetAttackTarget()
@@ -74,7 +88,7 @@ public class FightScreen: BaseScreen
 
     public void Update()
     {
-        Children.Clear();
+        //Children.Clear();
         this.Clear();
 
         DrawWalls();
@@ -129,3 +143,27 @@ public class FightScreen: BaseScreen
         _attackButton.IsEnabled = GetAttackTarget() is not null;
     }
 }
+
+// internal class SelectTargetMode : LogicComponent
+// {
+//     public override void OnAdded(IScreenObject host)
+//     {
+//         host.
+//         base.OnAdded(host);
+//     }
+//
+//     public override void OnRemoved(IScreenObject host)
+//     {
+//         base.OnRemoved(host);
+//     }
+//
+//     public override void Render(IScreenObject host, TimeSpan delta)
+//     {
+//         throw new NotImplementedException();
+//     }
+//
+//     public override void Update(IScreenObject host, TimeSpan delta)
+//     {
+//         throw new NotImplementedException();
+//     }
+// }

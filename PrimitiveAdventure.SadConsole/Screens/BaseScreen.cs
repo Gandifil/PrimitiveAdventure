@@ -1,9 +1,8 @@
-﻿using PrimitiveAdventure.Ui;
-using PrimitiveAdventure.Ui.Controls;
+﻿using PrimitiveAdventure.SadConsole.Controls;
 using SadConsole.Input;
 using SadConsole.UI;
 
-namespace PrimitiveAdventure.Screens;
+namespace PrimitiveAdventure.SadConsole.Screens;
 
 public abstract class BaseScreen: ControlsConsole
 {

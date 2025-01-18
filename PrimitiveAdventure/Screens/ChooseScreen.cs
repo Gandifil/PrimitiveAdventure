@@ -1,4 +1,6 @@
-﻿using PrimitiveAdventure.Screens.Base;
+﻿using PrimitiveAdventure.SadConsole.Controls;
+using PrimitiveAdventure.SadConsole.Screens;
+using PrimitiveAdventure.Screens.Base;
 using PrimitiveAdventure.Ui;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
