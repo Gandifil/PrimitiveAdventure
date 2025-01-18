@@ -4,6 +4,7 @@ using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.SadConsole.Screens;
+using PrimitiveAdventure.Screens.Views;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
@@ -51,6 +52,10 @@ public class FightScreen: BaseScreen
         _moveButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(Movement.Right);
 
         _playerPanel = new PlayerPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, _fightProcess.Player);
+        Children.Add(new ActorResourcesView(width, _fightProcess.Player)
+        {
+            Position = new Point(0, CELL_HEIGHT * FightProcess.MAP_HEIGHT),
+        });
         Children.Add(_playerPanel);
         foreach (var enemy in _fightProcess.Team2)
         {

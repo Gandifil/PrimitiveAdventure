@@ -1,4 +1,4 @@
-﻿namespace PrimitiveAdventure.Screens;
+﻿namespace PrimitiveAdventure.Ui;
 
 public class Animations
 {

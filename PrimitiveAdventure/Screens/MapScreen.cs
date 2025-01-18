@@ -1,6 +1,7 @@
 ﻿using PrimitiveAdventure.Core;
 using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.SadConsole.Screens;
+using PrimitiveAdventure.Ui;
 using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Screens;

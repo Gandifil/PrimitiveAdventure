@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using SadConsole;
 using SadConsole.Instructions;
 
-namespace PrimitiveAdventure.Screens;
+namespace PrimitiveAdventure.Screens.Views;
 
 public class Credits: Console
 {

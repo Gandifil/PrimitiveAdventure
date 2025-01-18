@@ -2,11 +2,12 @@
 
 namespace PrimitiveAdventure.Core.Rpg.Controlling;
 
-public class UseAbility(IAbility ability, IActor? target = null): IMove
+public class UseAbility(IAbility Ability, IActor? Target = null): IMove
 {
     public string DisplayText => "*";
     public void Apply(FightProcess fightProcess, Actor actor)
     {
-        throw new NotImplementedException();
+        var ability = (Ability)Ability;
+        ability.Use((Actor?)Target);
     }
 }

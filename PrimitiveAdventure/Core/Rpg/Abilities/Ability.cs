@@ -29,7 +29,7 @@ public abstract class Ability: IAbility
     public void Use(Actor? target)
     {
         Debug.Assert(IsUsableBy(_owner));
-        Debug.Assert(target is null && TargetIsRequired);
+        Debug.Assert(target is not null == TargetIsRequired);
         Pay();
         Impact(target);
     }

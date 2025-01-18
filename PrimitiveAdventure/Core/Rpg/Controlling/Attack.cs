@@ -8,6 +8,6 @@ public record Attack(Actor Target): IMove
     public void Apply(FightProcess fightProcess, Actor actor)
     {
         actor.Attack(Target);
-        (Game.Instance.Screen as FightScreen).Update();
+        //(Game.Instance.Screen as FightScreen).Update();
     }
 }
