@@ -2,5 +2,6 @@
 
 public interface IItem
 {
-    //string Name { get; }
+    string Name { get; }
+    Equipment.Kind Kind { get; }
 }

@@ -73,7 +73,7 @@ public class MapScreen: BaseScreen
         var resource = cell.Resource;
         if (cell is EnemyGroup)
         {
-            var animation = Animations.ForEnemyGroup();
+            var animation = Animations.Noise(CELL_WIDTH - 1, CELL_HEIGHT - 1, Color.Red);
             animation.Position = new Point(rect.X + 1, rect.Y + 1);
             StartAnimation(animation);
         }

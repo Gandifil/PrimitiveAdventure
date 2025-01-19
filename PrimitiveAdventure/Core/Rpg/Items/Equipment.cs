@@ -15,8 +15,10 @@ public class Equipment
     
     public IWeapon Weapon => _items.TryGetValue(Kind.Weapon, out var item) ? (IWeapon)item : Default;
 
-    public void setItem(Kind kind, IItem item)
+    public void setItem(IItem item)
     {
-        _items[kind] = item;
+        _items[item.Kind] = item;
     }
+    
+    public IItem? this[Kind index] => index == Kind.Weapon ? Weapon : _items.GetValueOrDefault(index);
 }

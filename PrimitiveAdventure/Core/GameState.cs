@@ -1,5 +1,6 @@
 ﻿using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.Core.Rpg.Actors;
+using PrimitiveAdventure.Core.Rpg.Items;
 
 namespace PrimitiveAdventure.Core;
 
@@ -14,6 +15,7 @@ public class GameState
         GlobalMap = new GlobalMap(new Point(10, 10));
         GlobalMap.Spawn(new Chest(), 1, 1);
         GlobalMap.Spawn(new Chest(), 4, 4);
+        GlobalMap.Spawn(new ItemCell(new Sword()), 3, 4);
         var enemyGroup = new EnemyGroup();
         enemyGroup.Enemies.Add(new Dog());
         GlobalMap.Spawn(enemyGroup, 2, 3);

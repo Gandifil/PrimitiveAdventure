@@ -8,10 +8,14 @@ public interface IWeapon: IItem
 public class Hands: IWeapon
 {
     public int Damage => 2;
+    public string Name => "Руки";
+    public Equipment.Kind Kind => Equipment.Kind.Weapon;
 }
 
 public class Sword: IWeapon
 {
     public int Damage => 4;
+    public string Name => "Меч";
+    public Equipment.Kind Kind => Equipment.Kind.Weapon;
 }
 
