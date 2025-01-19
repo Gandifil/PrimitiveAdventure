@@ -4,4 +4,5 @@ public interface IItem
 {
     string Name { get; }
     Equipment.Kind Kind { get; }
+    string ResourceName { get; }
 }
