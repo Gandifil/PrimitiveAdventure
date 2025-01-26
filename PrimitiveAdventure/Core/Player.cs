@@ -1,4 +1,5 @@
-﻿using PrimitiveAdventure.Core.Global;
+﻿using System.Collections.ObjectModel;
+using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
@@ -30,5 +31,12 @@ public class Player: Actor, IPlayer
         Direction = 1;
         Abilities.Add(new SelfHeal(this));
         Abilities.Add(new DoubleStrike(this));
+
+        Equipment.Changed += (sender, kind) => UpdateParameters();
+    }
+
+    private void UpdateParameters()
+    {
+
     }
 }

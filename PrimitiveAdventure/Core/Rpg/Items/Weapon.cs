@@ -1,4 +1,6 @@
-﻿namespace PrimitiveAdventure.Core.Rpg.Items;
+﻿using PrimitiveAdventure.Core.Rpg.Modifiers;
+
+namespace PrimitiveAdventure.Core.Rpg.Items;
 
 public interface IWeapon: IItem
 {
@@ -11,6 +13,11 @@ public class Hands: IWeapon
     public string Name => "Руки";
     public Equipment.Kind Kind => Equipment.Kind.Weapon;
     public string ResourceName => "items/hands";
+
+    public IReadOnlyList<IModifier> Modifiers { get; } = new List<IModifier>()
+    {
+        
+    };
 }
 
 public class Sword: IWeapon
@@ -19,5 +26,10 @@ public class Sword: IWeapon
     public string Name => "Меч";
     public Equipment.Kind Kind => Equipment.Kind.Weapon;
     public string ResourceName => "items/sword";
+
+    public IReadOnlyList<IModifier> Modifiers { get; } = new List<IModifier>()
+    {
+        new ParamMod(Parameters.Kind.CounterAttackRate, 10)
+    };
 }
 
