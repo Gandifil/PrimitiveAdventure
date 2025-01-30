@@ -1,6 +1,6 @@
 ﻿namespace PrimitiveAdventure.Core.Rpg.Modifiers;
 
-public class Modifiers: List<IModifier>
+public class ModifiersList: List<IModifier>
 {
     void Assign(Actor actor)
     {
