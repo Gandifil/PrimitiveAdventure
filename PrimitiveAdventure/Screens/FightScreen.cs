@@ -36,7 +36,7 @@ public class FightScreen: BaseScreen
         _abilitiesButton.Position = new Point(12, height - 1);
         _abilitiesButton.Click += (_, __) =>
         {
-            var ability = new AbilityChooseScreen(width, height, _fightProcess.Player.Abilities)
+            var ability = new AbilityChooseScreen(_fightProcess.Player.Abilities)
             {
                 NextScreen = this,
             };

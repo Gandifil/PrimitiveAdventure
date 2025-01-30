@@ -1,6 +1,7 @@
 ﻿using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.Core.Rpg.Actors;
 using PrimitiveAdventure.Core.Rpg.Items;
+using PrimitiveAdventure.Screens;
 
 namespace PrimitiveAdventure.Core;
 
@@ -33,5 +34,22 @@ public class GameState
         GlobalMap.Move(Player.GlobalPosition, newPosition);
         Player.GlobalPosition = newPosition;
         nextCell?.OnCollisionWith(Player);
+    }
+
+    public void StartScreen()
+    {
+        var global = new GlobalModeScreen(this);
+        
+        var sMasteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
+        {
+            NextScreen = global,
+        };
+        
+        var masteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
+        {
+            NextScreen = sMasteryChooseScreen,
+        };
+        
+        masteryChooseScreen.Start();
     }
 }

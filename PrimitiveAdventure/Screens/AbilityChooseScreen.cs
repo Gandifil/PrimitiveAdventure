@@ -5,11 +5,11 @@ namespace PrimitiveAdventure.Screens;
 
 public class AbilityChooseScreen: ChooseScreen<IAbility>
 {
-    public AbilityChooseScreen(int width, int height, IReadOnlyList<IAbility> elements) : base(width, height, elements)
+    public AbilityChooseScreen(IReadOnlyList<IAbility> elements) : base(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT, elements)
     {
-        var entityView = new AbilityView(width / 2, height - 2)
+        var entityView = new AbilityView(Width / 2, Height - 2)
         {
-            Position = (width / 2, 0),
+            Position = (Width / 2, 0),
         };
         _entityView = entityView;
         Children.Add(entityView);

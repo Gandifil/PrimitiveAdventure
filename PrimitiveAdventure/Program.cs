@@ -24,7 +24,7 @@ void Startup(object? sender, GameHost host)
     Settings.ResizeMode = Settings.WindowResizeOptions.Scale;
 
     if (args.Contains("-test"))
-        new GlobalModeScreen(new GameState()).Start();
+        new GameState().StartScreen();
     else
         new MainMenu().Start();
     Game.Instance.DestroyDefaultStartingConsole();

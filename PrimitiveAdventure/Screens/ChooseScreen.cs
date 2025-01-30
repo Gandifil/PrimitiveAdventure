@@ -8,7 +8,7 @@ using SadConsole.UI.Controls;
 
 namespace PrimitiveAdventure.Screens;
 
-public class ChooseScreen<T>: BaseScreen where T: class, INamed
+public class ChooseScreen<T>: BaseScreen where T: class
 {
     private readonly IReadOnlyCollection<T> _elements;
     protected IEntityView<T> _entityView;
@@ -33,16 +33,19 @@ public class ChooseScreen<T>: BaseScreen where T: class, INamed
         Keys.D9,
     };
     
-    public ChooseScreen(int width, int height, IReadOnlyList<T> elements) : base(width, height)
+    public ChooseScreen(int width, int height, IReadOnlyList<T> elements, bool showExitButton = true) : base(width, height)
     {
         _elements = elements;
 
-        var exitButton = new KeyedButton("назад".Prepare(), Keys.Escape)
+        if (showExitButton)
         {
-            Position = (1, height - 1)
-        };
-        exitButton.Click += ExitButtonOnClick;
-        Controls.Add(exitButton);
+            var exitButton = new KeyedButton("назад".Prepare(), Keys.Escape)
+            {
+                Position = (1, height - 1)
+            };
+            exitButton.Click += ExitButtonOnClick;
+            Controls.Add(exitButton);
+        }
 
         var enterButton = new KeyedButton("выбрать".Prepare(), Keys.Enter)
         {
