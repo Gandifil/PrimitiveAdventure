@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Items;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens.Items;
 
 namespace PrimitiveAdventure.Core.Global;

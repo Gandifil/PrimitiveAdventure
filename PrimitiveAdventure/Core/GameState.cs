@@ -1,6 +1,7 @@
 ﻿using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.Core.Rpg.Actors;
 using PrimitiveAdventure.Core.Rpg.Items;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 
 namespace PrimitiveAdventure.Core;

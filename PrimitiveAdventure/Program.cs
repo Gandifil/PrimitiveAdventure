@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 using SadConsole.Configuration;
 using Game = SadConsole.Game;
