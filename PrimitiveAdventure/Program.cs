@@ -8,10 +8,7 @@ Settings.WindowTitle = "Primitive Adventure";
 
 Builder gameStartup = new Builder()
     .SetScreenSize(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT)
-    //.SetStartingScreen<MainMenu>()
-    .UseDefaultConsole()
     .IsStartingScreenFocused(true)
-    .ConfigureFonts(true)
     .ConfigureFonts("Resources/Fonts/Cheepicus12.font")
     .OnStart(Startup);
 
@@ -27,5 +24,4 @@ void Startup(object? sender, GameHost host)
         new GameState().StartScreen();
     else
         new MainMenu().Start();
-    Game.Instance.DestroyDefaultStartingConsole();
 }

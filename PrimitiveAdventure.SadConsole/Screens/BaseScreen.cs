@@ -13,7 +13,8 @@ public abstract class BaseScreen: ControlsConsole
 
     public void Start()
     {
-        Game.Instance.Screen.IsFocused = false;
+        if (Game.Instance.Screen != null)
+            Game.Instance.Screen.IsFocused = false;
         Game.Instance.Screen = this;
         Game.Instance.Screen.IsFocused = true;
     }
