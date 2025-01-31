@@ -6,7 +6,7 @@ namespace PrimitiveAdventure.Core.Global;
 
 public class ItemCell(IItem Item): IGlobalMapCell
 {
-    public string Name { get; } = "f";
+    public string RenderName { get; } = "f";
     public string? Resource { get; } = null;
 
     public void OnCollisionWith(Player player)

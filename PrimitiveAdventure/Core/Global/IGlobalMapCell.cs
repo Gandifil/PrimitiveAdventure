@@ -2,7 +2,7 @@
 
 public interface IGlobalMapCell
 {
-    string Name { get; }
+    string RenderName { get; }
     
     string? Resource { get; }
 

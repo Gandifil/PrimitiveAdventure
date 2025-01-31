@@ -2,6 +2,6 @@
 
 public class Chest: IGlobalMapCell
 {
-    public string Name => "сундук";
+    public string RenderName => "сундук";
     public string? Resource => null;
 }

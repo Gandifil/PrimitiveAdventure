@@ -6,7 +6,7 @@ namespace PrimitiveAdventure.Core.Global;
 
 public class EnemyGroup: IGlobalMapCell
 {
-    public string Name { get; } = null;
+    public string RenderName { get; } = null;
     public string? Resource { get; } = null;
 
     public List<Actor> Enemies { get; } = new();

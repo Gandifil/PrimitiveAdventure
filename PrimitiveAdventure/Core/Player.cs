@@ -26,13 +26,14 @@ public class Player: Actor, IPlayer, ISaveable
     public IActorController Control => (PlayerController)Controller;
     public Equipment Equipment { get; } = new();
     public MasteryManager Masteries { get; }
-    public string Name { get; } = "player";
+    public string RenderName { get; } = "player";
     public string? Resource { get; } = "player";
 
     public override int Damage => Equipment.Weapon.Damage;
 
     public Player()
     {
+        Name = "Player";
         Direction = 1;
         Abilities.Add(new SelfHeal(this));
         Abilities.Add(new DoubleStrike(this));

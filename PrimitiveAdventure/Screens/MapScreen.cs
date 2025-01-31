@@ -81,7 +81,7 @@ public class MapScreen: BaseScreen
             Cursor
                 .SetPrintAppearance(Color.Yellow)
                 .Move(rect.X + 1, rect.Y + 1)
-                .Print(cell.Name?.Prepare());
+                .Print(cell.RenderName?.Prepare());
         else
         {
             var lines = Services.Resources.Load<IEnumerable<string>>(resource);
