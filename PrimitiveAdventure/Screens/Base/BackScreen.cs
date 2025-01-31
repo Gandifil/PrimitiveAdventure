@@ -1,9 +1,7 @@
 ﻿using PrimitiveAdventure.SadConsole.Controls;
-using PrimitiveAdventure.Screens.Base;
-using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
 
-namespace PrimitiveAdventure.Screens;
+namespace PrimitiveAdventure.Screens.Base;
 
 public class BackScreen<T>: GlobalScreen where T: ScreenObject, new()
 {

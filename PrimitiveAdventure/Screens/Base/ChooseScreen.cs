@@ -1,13 +1,10 @@
 ﻿using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.SadConsole.Screens;
-using PrimitiveAdventure.Screens.Base;
-using PrimitiveAdventure.Ui;
-using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
 
-namespace PrimitiveAdventure.Screens;
+namespace PrimitiveAdventure.Screens.Base;
 
 public class ChooseScreen<T>: BaseScreen where T: class
 {
