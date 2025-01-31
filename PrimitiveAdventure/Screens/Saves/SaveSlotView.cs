@@ -14,7 +14,7 @@ public class SaveSlotView: Console, IEntityView<SaveSlot>
         
         Cursor.Position = new Point(0, 0);
         if (entity.Player is null)
-            Cursor.Print("Начать игру".Prepare());
+            Cursor.Print("Начать новую игру".Prepare());
         else 
             Cursor.Print(entity.Player.Name.Prepare());
     }

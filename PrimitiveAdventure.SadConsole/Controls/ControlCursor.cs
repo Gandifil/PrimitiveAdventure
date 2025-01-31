@@ -23,6 +23,21 @@ public class ControlCursor(ControlHost ControlHost)
         return this;
     }
 
+    public ControlCursor Print(ControlBase control, ControlBase nextControl)
+    {
+        control.Position = Position;
+        ControlHost.Add(control);
+        
+        Position += (control.Width, 0);
+        
+        nextControl.Position = Position;
+        ControlHost.Add(nextControl);
+        
+        Position += (-control.Width, Math.Max(control.Height, nextControl.Height) + Shift);
+        
+        return this;
+    }
+
     public ControlCursor SetShift(int value)
     {
         Shift = value;

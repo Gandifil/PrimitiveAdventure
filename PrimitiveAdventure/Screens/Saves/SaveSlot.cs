@@ -3,21 +3,12 @@ using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Screens.Saves;
 
-public class SaveSlot
+public record SaveSlot(int Index)
 {
-    private readonly int _index;
+    public Player? Player { get; set; } = Content.Saves.Load("save" + Index);
 
-    public Player? Player { get; set; }
-
-    public SaveSlot(int index)
-    {
-        _index = index;
-        
-        Player = Content.Saves.Load("save" + index);
-    }
-    
     public override string ToString()
     {
-        return (Player?.Name ?? $"слот{_index}").Prepare();
+        return (Player?.Name ?? $"слот{Index}").Prepare();
     }
 }

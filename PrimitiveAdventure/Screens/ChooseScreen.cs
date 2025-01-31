@@ -20,7 +20,7 @@ public class ChooseScreen<T>: BaseScreen where T: class
     
     public required BaseScreen BackScreen { get; init; }
 
-    public event Action<T> SelectedSuccessfully; 
+    public event Action<T> SelectedSuccessfully;
 
     private static List<Keys> KeysList = new List<Keys>()
     {

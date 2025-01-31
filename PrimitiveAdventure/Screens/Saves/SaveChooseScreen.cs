@@ -1,4 +1,6 @@
-﻿namespace PrimitiveAdventure.Screens.Saves;
+﻿using PrimitiveAdventure.SadConsole;
+
+namespace PrimitiveAdventure.Screens.Saves;
 
 public class SaveChooseScreen: ChooseScreen<SaveSlot>
 {
@@ -11,6 +13,8 @@ public class SaveChooseScreen: ChooseScreen<SaveSlot>
         };
         _entityView = entityView;
         Children.Add(entityView);
+
+        SelectedSuccessfully += slot => (slot.Player is null ? new CreatePlayerScreen(slot.Index) : null!).Start();
     }
 
     private static IReadOnlyList<SaveSlot> GetAllSaveSlots()
