@@ -11,6 +11,7 @@ namespace PrimitiveAdventure.Screens;
 
 public class ChooseScreen<T>: BaseScreen where T: class
 {
+    private readonly Button enterButton;
     private readonly IReadOnlyCollection<T> _elements;
     protected IEntityView<T> _entityView;
     //private readonly TextBox _description;
@@ -48,9 +49,10 @@ public class ChooseScreen<T>: BaseScreen where T: class
             Controls.Add(exitButton);
         }
 
-        var enterButton = new KeyedButton("выбрать".Prepare(), Keys.Enter)
+        enterButton = new KeyedButton("выбрать".Prepare(), Keys.Enter)
         {
-            Position = (width-"выбрать".Length -15, height - 1)
+            Position = (width-"выбрать".Length -15, height - 1),
+            IsEnabled = false
         };
         enterButton.Click += EnterButtonOnClick;
         Controls.Add(enterButton);
@@ -84,6 +86,7 @@ public class ChooseScreen<T>: BaseScreen where T: class
 
     private void ListOnSelectedItemChanged(object? sender, ListBox.SelectedItemEventArgs e)
     {
+        enterButton.IsEnabled = true;
         Selected = (T)e.Item!;
         _entityView.Set(Selected);
     }
