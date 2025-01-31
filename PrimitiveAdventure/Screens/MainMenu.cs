@@ -1,6 +1,7 @@
 ﻿using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.Screens.Base;
+using PrimitiveAdventure.Screens.Saves;
 using PrimitiveAdventure.Screens.Views;
 using SadConsole.UI.Controls;
 
@@ -10,6 +11,15 @@ public class MainMenu: GlobalScreen
 {
     public MainMenu()
     {
+        var start = new Button("Начать".Prepare());
+        start.Click += (_, _) =>
+        {
+            new SaveChooseScreen()
+            {
+                NextScreen = null!,
+            }.Start();
+        };
+        
         var credit = new Button("Об игре".Prepare());
         credit.Click += (_, _) =>
         {
@@ -23,6 +33,7 @@ public class MainMenu: GlobalScreen
             .ToStart()
             .NewLine()
             .SetShift(1)
+            .Print(start)
             .Print(credit)
             .Print(exit);
     }
