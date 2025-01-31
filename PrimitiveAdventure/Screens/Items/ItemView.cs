@@ -1,6 +1,7 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Items;
 using PrimitiveAdventure.SadConsole.Screens;
 using PrimitiveAdventure.Screens.Base;
+using PrimitiveAdventure.Screens.Views;
 
 namespace PrimitiveAdventure.Screens.Items;
 

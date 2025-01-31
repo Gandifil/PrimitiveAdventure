@@ -1,8 +1,8 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.SadConsole.Effects;
-using PrimitiveAdventure.Ui;
+using PrimitiveAdventure.Screens.Base;
 
-namespace PrimitiveAdventure.Screens.Base;
+namespace PrimitiveAdventure.Screens.Views;
 
 public class AbilityView: Console, IEntityView<IAbility>
 {

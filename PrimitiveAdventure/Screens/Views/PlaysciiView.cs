@@ -1,6 +1,6 @@
 ﻿using SadConsole.Readers;
 
-namespace PrimitiveAdventure.Screens.Base;
+namespace PrimitiveAdventure.Screens.Views;
 
 public class PlaysciiView: ScreenSurface
 {

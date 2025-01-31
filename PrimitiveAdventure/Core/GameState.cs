@@ -35,16 +35,16 @@ public class GameState
     {
         var global = new GlobalModeScreen(this);
         
-        var sMasteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
-        {
-            BackScreen = global,
-        };
+        // var sMasteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
+        // {
+        //     BackScreen = global,
+        // };
+        //
+        // var masteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
+        // {
+        //     BackScreen = sMasteryChooseScreen,
+        // };
         
-        var masteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
-        {
-            BackScreen = sMasteryChooseScreen,
-        };
-        
-        masteryChooseScreen.Start();
+        global.Start();
     }
 }
