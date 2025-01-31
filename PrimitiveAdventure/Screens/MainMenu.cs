@@ -16,7 +16,7 @@ public class MainMenu: GlobalScreen
         {
             new SaveChooseScreen()
             {
-                NextScreen = null!,
+                BackScreen = this,
             }.Start();
         };
         

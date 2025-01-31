@@ -43,12 +43,12 @@ public class GameState
         
         var sMasteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
         {
-            NextScreen = global,
+            BackScreen = global,
         };
         
         var masteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
         {
-            NextScreen = sMasteryChooseScreen,
+            BackScreen = sMasteryChooseScreen,
         };
         
         masteryChooseScreen.Start();

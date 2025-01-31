@@ -39,7 +39,7 @@ public class FightScreen: BaseScreen
         {
             var ability = new AbilityChooseScreen(_fightProcess.Player.Abilities)
             {
-                NextScreen = this,
+                BackScreen = this,
             };
             ability.SelectedSuccessfully += AbilityOnSelectedSuccessfully;
             ability.Start();
@@ -72,6 +72,7 @@ public class FightScreen: BaseScreen
 
     private void AbilityOnSelectedSuccessfully(IAbility ability)
     {
+        this.Start();
         _selectedAbility = ability;
         if (ability.TargetIsRequired)
         {

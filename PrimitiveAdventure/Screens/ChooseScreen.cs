@@ -17,7 +17,7 @@ public class ChooseScreen<T>: BaseScreen where T: class
     
     public T? Selected { get; private set; }
     
-    public required BaseScreen NextScreen { get; init; }
+    public required BaseScreen BackScreen { get; init; }
 
     public event Action<T> SelectedSuccessfully; 
 
@@ -64,9 +64,6 @@ public class ChooseScreen<T>: BaseScreen where T: class
         for (int i = 0; i < elements.Count; i++)
         {
             var element = elements[i];
-            // var key = KeysList[i];
-            // var button = new KeyedButton(element.Name.Prepare(), key);
-            //button.Position
             list.Items.Add(element);
         }
     }
@@ -77,13 +74,12 @@ public class ChooseScreen<T>: BaseScreen where T: class
             return;
         
         SelectedSuccessfully?.Invoke(Selected);
-        NextScreen.Start();
     }
 
     private void ExitButtonOnClick(object? sender, EventArgs e)
     {
         Selected = null;
-        NextScreen.Start();
+        BackScreen.Start();
     }
 
     private void ListOnSelectedItemChanged(object? sender, ListBox.SelectedItemEventArgs e)
