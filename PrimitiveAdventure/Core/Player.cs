@@ -5,6 +5,7 @@ using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.Core.Rpg.Items;
 using PrimitiveAdventure.Core.Rpg.Masteries;
+using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Core;
 
@@ -19,7 +20,7 @@ public interface IPlayer: IActor, IGlobalMapCell
     public MasteryManager Masteries { get; }
 }
 
-public class Player: Actor, IPlayer
+public class Player: Actor, IPlayer, ISaveable
 {
     public Point GlobalPosition { get; set; }
     public IActorController Control => (PlayerController)Controller;
@@ -43,5 +44,15 @@ public class Player: Actor, IPlayer
     private void UpdateParameters()
     {
 
+    }
+
+    public void Save(StreamWriter streamWriter)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Load(StreamReader streamReader)
+    {
+        throw new NotImplementedException();
     }
 }
