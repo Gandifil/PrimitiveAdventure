@@ -14,8 +14,6 @@ public class EnemyGroup: IGlobalMapCell
     public void OnCollisionWith(Player player)
     {
         var fightProcess = new FightProcess(player, Enemies);
-
-        new FightScreen(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT, fightProcess)
-            .Start();
+        new FightScreen(fightProcess).Start();
     }
 }

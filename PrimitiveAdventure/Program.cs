@@ -1,5 +1,7 @@
 ﻿using PrimitiveAdventure.Core;
 using PrimitiveAdventure.Core.Global;
+using PrimitiveAdventure.Core.Rpg;
+using PrimitiveAdventure.Core.Rpg.Actors;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 using SadConsole.Configuration;
@@ -24,6 +26,8 @@ void Startup(object? sender, GameHost host)
 
     if (args.Contains("-test"))
         new GameState(GlobalMap.TestMap(), new Player()).StartScreen();
+    else if (args.Contains("--test-fight"))
+        new FightScreen(new FightProcess(new Player(), [new Dog()])).Start();
     else
         new MainMenu().Start();
 }

@@ -5,6 +5,7 @@ using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.SadConsole.Screens;
+using PrimitiveAdventure.Screens.Base;
 using PrimitiveAdventure.Screens.Views;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
@@ -12,7 +13,7 @@ using SadConsole.UI.Controls;
 
 namespace PrimitiveAdventure.Screens;
 
-public class FightScreen: BaseScreen
+public class FightScreen: GlobalScreen
 {
     const int CELL_WIDTH = 24;
     const int CELL_HEIGHT = 10;
@@ -24,17 +25,17 @@ public class FightScreen: BaseScreen
     private readonly Dictionary<IActor, EnemyPanel> _enemyPanels  = new();
     private readonly PlayerPanel _playerPanel;
     
-    public FightScreen(int width, int height, FightProcess fightProcess) : base(width, height)
+    public FightScreen(FightProcess fightProcess)
     {
         _fightProcess = fightProcess;
 
         _attackButton = new KeyedButton("атака".Prepare(), Keys.A);
-        _attackButton.Position = new Point(0, height - 1);
+        _attackButton.Position = new Point(0, Height - 1);
         _attackButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Attack((Actor)GetAttackTarget()));
         Controls.Add(_attackButton);
 
         _abilitiesButton = new KeyedButton("способности".Prepare(), Keys.S);
-        _abilitiesButton.Position = new Point(12, height - 1);
+        _abilitiesButton.Position = new Point(12, Height - 1);
         _abilitiesButton.Click += (_, __) =>
         {
             var ability = new AbilityChooseScreen(_fightProcess.Player.Abilities)
@@ -53,7 +54,7 @@ public class FightScreen: BaseScreen
         _moveButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(Movement.Right);
 
         _playerPanel = new PlayerPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, _fightProcess.Player);
-        Children.Add(new ActorResourcesView(width, _fightProcess.Player)
+        Children.Add(new ActorResourcesView(Width, _fightProcess.Player)
         {
             Position = new Point(0, CELL_HEIGHT * FightProcess.MAP_HEIGHT),
         });
@@ -76,12 +77,9 @@ public class FightScreen: BaseScreen
         _selectedAbility = ability;
         if (ability.TargetIsRequired)
         {
-            //SadComponents.Add(new SelectTargetMode());
             var items = _fightProcess.MapTeam1.AllWhere(ability.TargetKind);
             if (items.Count > 0)
                 StartSelectMode(items);
-            // else if (items.Count == 1)
-            //     _fightProcess.Player.Control.SetMove(new UseAbility(ability, items.First()));
             else
             {
                 Debug.Assert(false);
@@ -129,7 +127,6 @@ public class FightScreen: BaseScreen
 
     public void Update()
     {
-        //Children.Clear();
         this.Clear();
 
         DrawWalls();
