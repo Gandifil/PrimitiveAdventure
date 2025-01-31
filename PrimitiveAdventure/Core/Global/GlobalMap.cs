@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using PrimitiveAdventure.Core.Rpg.Actors;
+using PrimitiveAdventure.Core.Rpg.Items;
 
 namespace PrimitiveAdventure.Core.Global;
 
@@ -55,5 +57,25 @@ public class GlobalMap: IGlobalMap
         var doorCell = from.X + from.Y > to.X + to.Y ? to : from;
         var isRightDoor = from.X != to.X;
         _doors[GetDoorsIndex(doorCell.X, doorCell.Y, isRightDoor)] = true;
+    }
+
+    public static GlobalMap TestMap()
+    {
+        var map = new GlobalMap(new Point(10, 10));
+        map.Spawn(new Chest(), 1, 1);
+        map.Spawn(new Chest(), 4, 4);
+        map.Spawn(new ItemCell(new Sword()), 3, 4);
+        var enemyGroup = new EnemyGroup();
+        enemyGroup.Enemies.Add(new Dog());
+        map.Spawn(enemyGroup, 2, 3);
+        return map;
+    }
+
+    public static GlobalMap GenerateMap(int level = 0)
+    {
+        if (level == 0)
+            return TestMap();
+        
+        throw new NotImplementedException();
     }
 }

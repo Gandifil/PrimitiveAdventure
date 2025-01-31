@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core;
+using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.Screens.Base;
 using SadConsole.UI.Controls;
@@ -27,6 +28,6 @@ public class CreatePlayerScreen: GlobalScreen
     private void ButtonOnClick(object? sender, EventArgs e)
     {
         if (_textBox.Text.Length > 0)
-            new GameState().StartScreen();
+            new GameState(GlobalMap.GenerateMap(), new Player()).StartScreen();
     }
 }

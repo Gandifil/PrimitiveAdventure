@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core;
+using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 using SadConsole.Configuration;
@@ -22,7 +23,7 @@ void Startup(object? sender, GameHost host)
     Settings.ResizeMode = Settings.WindowResizeOptions.Scale;
 
     if (args.Contains("-test"))
-        new GameState().StartScreen();
+        new GameState(GlobalMap.TestMap(), new Player()).StartScreen();
     else
         new MainMenu().Start();
 }

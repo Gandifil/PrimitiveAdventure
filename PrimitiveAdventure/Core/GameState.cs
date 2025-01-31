@@ -12,17 +12,11 @@ public class GameState
 
     public GlobalMap GlobalMap { get; }
 
-    public GameState()
+    public GameState(GlobalMap globalMap, Player player)
     {
-        GlobalMap = new GlobalMap(new Point(10, 10));
-        GlobalMap.Spawn(new Chest(), 1, 1);
-        GlobalMap.Spawn(new Chest(), 4, 4);
-        GlobalMap.Spawn(new ItemCell(new Sword()), 3, 4);
-        var enemyGroup = new EnemyGroup();
-        enemyGroup.Enemies.Add(new Dog());
-        GlobalMap.Spawn(enemyGroup, 2, 3);
+        GlobalMap = globalMap;
         
-        Player = new Player();
+        Player = player;
         Player.GlobalPosition = new Point(3, 3);
         GlobalMap.Spawn(Player, 3, 3);
     }
