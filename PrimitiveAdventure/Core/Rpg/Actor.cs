@@ -1,6 +1,7 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.Core.Rpg.Utils;
+using PrimitiveAdventure.Screens.Fight;
 
 namespace PrimitiveAdventure.Core.Rpg;
 
@@ -67,6 +68,7 @@ public abstract class Actor : IActor
     {
         target.Health.Value -= Damage;
         target.OnAttacked();
+        FightLog.Instance.PrintLine($"{Name} нанес удар по {target.Name} и нанес [c:r f:Red]{Damage}[c:u 1] урона");
     }
 
     public event Action Attacked;

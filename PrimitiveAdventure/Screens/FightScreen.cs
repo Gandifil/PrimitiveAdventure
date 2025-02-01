@@ -20,6 +20,7 @@ public class FightScreen: GlobalScreen
     const int CELL_HEIGHT = 10;
     
     private readonly FightProcess _fightProcess;
+    private readonly FightLog _fightLog;
     private readonly Button _attackButton;
     private readonly Button _abilitiesButton;
     private readonly Button _moveButton;
@@ -59,7 +60,12 @@ public class FightScreen: GlobalScreen
             CELL_HEIGHT * FightProcess.MAP_HEIGHT, 
             _fightProcess.Player)
         {
-            Position = new Point(CELL_WIDTH * FightProcess.MAP_WIDTH, 0),
+            Position = new Point(CELL_WIDTH * FightProcess.MAP_WIDTH + 1, 0),
+        });
+        Children.Add(new FightLog(Width - 1, Height - CELL_HEIGHT * FightProcess.MAP_HEIGHT - 3)
+        {
+            Position = new Point(0, CELL_HEIGHT * FightProcess.MAP_HEIGHT + 1),
+            
         });
         Children.Add(_playerPanel);
         foreach (var enemy in _fightProcess.Team2)
