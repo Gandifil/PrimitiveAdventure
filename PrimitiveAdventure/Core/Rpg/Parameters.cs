@@ -39,7 +39,7 @@ public class Parameters: IParameters
         foreach (var (kind, _) in _values)
             _values[kind].Value = kind switch
             {
-                Kind.CriticalRate => 5,
+                Kind.CriticalRate => 50,
                 Kind.CriticalDamage => 200,
                 _ => 0,
             };
