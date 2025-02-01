@@ -44,6 +44,7 @@ public abstract class Actor : IActor
 
         var damageRate = isCritical ? Parameters[Parameters.Kind.CriticalDamage] : 100;
         var damage = Damage * damageRate / 100;
+        damage = Math.Max(0, damage - target.Parameters[Parameters.Kind.Armor]);
         target.Health.Value -= damage;
         target.OnAttacked();
         
