@@ -53,16 +53,45 @@ public abstract class Actor : IActor
 
     private string GetAttackText(Actor target, bool isCritical, int damage)
     {
-        string[] templates =
-        [
-            "{0} врезается оружием в {1} — {2} урона!",
-            "{0} совершает резкий взмах! {1} отшатывается от удара. ({2})"
-        ];
+        var templates = new List<FightLogTemplate>
+        {
+            // Обычные удары (не критические, не заблокированные)
+            new FightLogTemplate(false, false, "{0} врезается оружием в {1} — {2} урона!"),
+            new FightLogTemplate(false, false, "{0} бьёт {1} в плечо — сталь скользит по доспехам! ({2})"),
+            new FightLogTemplate(false, false, "Резкий взмах! {1} отшатывается от удара. ({2})"),
+            new FightLogTemplate(false, false, "{0} пронзает {1} — кровь сочится по лезвию. ({2})"),
+            new FightLogTemplate(false, false, "Глухой удар! {1} теряет равновесие. ({2})"),
+
+            // Критические удары (критические, не заблокированные)
+            new FightLogTemplate(true, false, "{0} вонзает оружие в *самое сердце* брони {1} — **сокрушительный** {2}!"),
+            new FightLogTemplate(true, false, "***СТИХИЯ БИТВЫ!*** {0} крушит {1} — кости трещат, доспехи **раскалываются**! ({2})"),
+            new FightLogTemplate(true, false, "***СМЕРТОНОСНЫЙ ВИХРЬ!*** Удар {0} сносит {1} с ног — **критическая рана**! ({2})"),
+            new FightLogTemplate(true, false, "{0} *рассекает* воздух — {1} не успевает крикнуть! **Молния в плоти**! ({2})"),
+            new FightLogTemplate(true, false, "***СМЕРТЬ ШЁПОТОМ...*** {0} ловит слабину в защите — лезвие **впивается** в горло {1}! ({2})"),
+
+            // Блокировки броней (не критические, заблокированные)
+            new FightLogTemplate(false, true, "{0} бьёт {3} по щиту {1} — **броня непоколебима**! (0 урона)"),
+            new FightLogTemplate(false, true, "Удар {0} отскакивает от доспехов {1} — лишь искры летят в ответ. (0)"),
+            new FightLogTemplate(false, true, "{1} ловко парирует {3} — сталь **звенит**, но не сдаётся. (0)"),
+            new FightLogTemplate(false, true, "Глухой лязг! {3} {0} бессильно скользит по пластинам {1}. (0)"),
+            new FightLogTemplate(false, true, "{0} атакует — {1} даже не шелохнулся. **Стена из металла**! (0)"),
+
+            // Критические блокировки (критические, заблокированные)
+            new FightLogTemplate(true, true, "***СОКРУШИТЕЛЬНЫЙ УДАР...*** Но броня {1} **поглощает** всю ярость {0}! (0)"),
+            new FightLogTemplate(true, true, "***ВИХРЬ БЕЗ СИЛЫ!*** {0} вкладывает всю мощь в удар — доспехи {1} **непреклонны**. (0)"),
+            new FightLogTemplate(true, true, "{0} бьёт {3} с рёвом — {1} **смеётся**, стирая пыль с наплечников. (0)"),
+            new FightLogTemplate(true, true, "***НЕПРОБИВАЕМО!*** Даже критическая сила {0} разбивается о щит {1}. (0)"),
+            new FightLogTemplate(true, true, "***ХОЛОД БЕЗУЧАСТНОСТИ...*** Атака {0} замирает, не достигнув кожи {1}. (0)")
+        };
         
-        return string.Format(Random.Shared.GetItems(templates, 1).First(), 
+        var correctTemplates = templates
+            .Where(x => x.IsCritical == isCritical && x.IsBlocked == (damage == 0)).ToArray();
+        
+        return string.Format(Random.Shared.GetItems(correctTemplates, 1).First().Template, 
             ColoredStringBuilder.Name(Name), 
             ColoredStringBuilder.Name(target.Name), 
-            ColoredStringBuilder.Damage("-" + damage.ToString()));
+            ColoredStringBuilder.Damage("-" + damage.ToString()),
+            "рукой");
     }
 
     private bool Dice(int rate)
