@@ -23,4 +23,5 @@ public class ColoredStringBuilder
 
     public static string Name(string text) => "[c:r f:Yellow]" + text + "[c:u 1]";
     public static string Damage(string text) => "[c:r f:Red]" + text + "[c:u 1]";
+    public static string Positive(string text) => "[c:r f:LightGreen]" + text + "[c:u 1]";
 }
