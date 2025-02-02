@@ -4,6 +4,7 @@ using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Actors;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
+using PrimitiveAdventure.Screens.Fight;
 using SadConsole.Configuration;
 using Game = SadConsole.Game;
 using Settings = SadConsole.Settings;

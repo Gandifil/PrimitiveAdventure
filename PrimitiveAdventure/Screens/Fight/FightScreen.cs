@@ -4,15 +4,12 @@ using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Controls;
-using PrimitiveAdventure.SadConsole.Screens;
 using PrimitiveAdventure.Screens.Base;
-using PrimitiveAdventure.Screens.Fight;
-using PrimitiveAdventure.Screens.Views;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
 using SadConsole.UI.Controls;
 
-namespace PrimitiveAdventure.Screens;
+namespace PrimitiveAdventure.Screens.Fight;
 
 public class FightScreen: GlobalScreen
 {
