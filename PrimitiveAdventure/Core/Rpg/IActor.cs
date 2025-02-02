@@ -1,5 +1,6 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
+using PrimitiveAdventure.Core.Rpg.Effects;
 using PrimitiveAdventure.Core.Rpg.Utils;
 
 namespace PrimitiveAdventure.Core.Rpg;
@@ -19,6 +20,8 @@ public interface IActor
     IReadOnlyList<IAbility> Abilities { get; }
     
     IParameters Parameters { get; }
+    
+    IEffectHost Effects { get; }
     
     IControllable Controller { get; }
     

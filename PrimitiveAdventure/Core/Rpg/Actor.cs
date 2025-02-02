@@ -1,5 +1,6 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
+using PrimitiveAdventure.Core.Rpg.Effects;
 using PrimitiveAdventure.Core.Rpg.Utils;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens.Fight;
@@ -20,6 +21,8 @@ public abstract class Actor : IActor
     public List<Ability> Abilities { get; } = new ();
     
     public Parameters Parameters { get; } = new();
+    public EffectHost Effects { get; private set; }
+    IEffectHost IActor.Effects => Effects;
 
     IParameters IActor.Parameters => Parameters;
     
@@ -41,6 +44,7 @@ public abstract class Actor : IActor
 
     public void Attack(Actor target)
     {
+        Effects = new EffectHost(this);
         var isCritical = Dice(Parameters[Parameters.Kind.CriticalRate]);
 
         var damageRate = isCritical ? Parameters[Parameters.Kind.CriticalDamage] : 100;
