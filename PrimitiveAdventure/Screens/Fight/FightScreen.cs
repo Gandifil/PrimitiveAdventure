@@ -7,6 +7,7 @@ using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.Screens.Base;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
+using SadConsole.UI;
 using SadConsole.UI.Controls;
 
 namespace PrimitiveAdventure.Screens.Fight;
@@ -18,23 +19,26 @@ public class FightScreen: GlobalScreen
     
     private readonly FightProcess _fightProcess;
     private readonly FightLog _fightLog;
-    private readonly Button _attackButton;
-    private readonly Button _abilitiesButton;
-    private readonly Button _moveButton;
     private readonly Dictionary<IActor, EnemyPanel> _enemyPanels  = new();
     private readonly PlayerPanel _playerPanel;
+
+    private readonly Button _attackButton;
+    private readonly Button _defenceButton;
+    private readonly Button _abilitiesButton;
+    private readonly Button _moveButton;
     
     public FightScreen(FightProcess fightProcess)
     {
         _fightProcess = fightProcess;
 
+        
         _attackButton = new KeyedButton("атака".Prepare(), Keys.A);
-        _attackButton.Position = new Point(0, Height - 1);
         _attackButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Attack((Actor)GetAttackTarget()));
-        Controls.Add(_attackButton);
-
+        
+        _defenceButton = new KeyedButton("защита".Prepare(), Keys.D);
+        _defenceButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Defence());
+        
         _abilitiesButton = new KeyedButton("способности".Prepare(), Keys.S);
-        _abilitiesButton.Position = new Point(12, Height - 1);
         _abilitiesButton.Click += (_, __) =>
         {
             var ability = new AbilityChooseScreen(_fightProcess.Player.Abilities)
@@ -44,7 +48,10 @@ public class FightScreen: GlobalScreen
             ability.SelectedSuccessfully += AbilityOnSelectedSuccessfully;
             ability.Start();
         };
-        Controls.Add(_abilitiesButton);
+        
+        Controls.GetControlCursor().SetLine(Height - 1)
+            .Print(_attackButton).Print(_defenceButton).Print(_abilitiesButton);
+            
         
         _moveButton = new KeyedButton(string.Empty, Keys.Right)
         {

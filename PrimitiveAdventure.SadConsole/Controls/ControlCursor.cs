@@ -22,6 +22,12 @@ public class ControlCursor(ControlHost ControlHost)
     {
         control.Position = (Position, Line);
         ControlHost.Add(control);
+        if (control is ButtonBase buttonBase)
+            if (buttonBase.AutoSize)
+            {
+                buttonBase.UpdateAndRedraw(TimeSpan.MinValue);
+                Position += control.Surface.Width - 1;
+            }
         Position += control.Width;
         return this;
     }
@@ -41,6 +47,12 @@ public class ControlCursor(ControlHost ControlHost)
     {
         Position = 0;
         Line += shift;
+        return this;
+    }
+
+    public ControlCursor SetLine(int value)
+    {
+        Line = value;
         return this;
     }
 }
