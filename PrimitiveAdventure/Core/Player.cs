@@ -57,4 +57,14 @@ public class Player: Actor, IPlayer, ISaveable
     {
         throw new NotImplementedException();
     }
+
+    public int Level { get; private set; } = 1;
+
+    public int MasteryPoints { get; private set; } = 0;
+
+    public void LevelUp(int value)
+    {
+        Level += value;
+        MasteryPoints = 1 + value / 3;
+    }
 }
