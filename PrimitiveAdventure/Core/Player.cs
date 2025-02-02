@@ -35,8 +35,9 @@ public class Player: Actor, IPlayer, ISaveable
     {
         Name = "Player";
         Direction = 1;
-        Abilities.Add(new SelfHeal(this));
-        Abilities.Add(new DoubleStrike(this));
+        Abilities.Add(new SelfHeal());
+        Abilities.Add(new DoubleStrike());
+        Abilities.ForEach(x => x.SetOwner(this));
 
         Masteries = new(this);
         Equipment.Changed += (sender, kind) => UpdateParameters();

@@ -4,7 +4,7 @@ namespace PrimitiveAdventure.Masteries.HandToHandCombat;
 
 public class HandToHandCombatMastery: Mastery
 {
-    public override string Name => "Hand to Hand Combat";
+    public override string Name => "Рукопашный бой";
     public override string Description => @$"Стань неудержимой силой в сердце схватки.
 
 Ты — вихрь плоти и костей, танцующий в эпицентре хаоса. Твои кулаки обрушиваются, как молот, ломая доспехи; твои удары ногами рассекают воздух, сбивая врагов с ног. Здесь нет места страху — только ритм боя, зовущий тебя вплотную к противнику, где каждый выдох становится оружием, а каждая рана лишь подливает ярости в кровь.
@@ -12,8 +12,8 @@ public class HandToHandCombatMastery: Mastery
 Эти перки превратят тебя в хищника: ты научишься парировать клинки голыми руками, выжимать из мышц взрывную мощь и сокрушать толпы одним рывком. Выбери путь тех, кто не прячется за щитами или прицелами. Твоя стихия — ярость близкого боя, где победа достаётся не тому, кто стреляет первым, а тому, кто выстоит последним.
 ";
 
-    public override ITalent[] Talents { get; } = new[]
-    {
-        new SteelArmsTalent()
+    public override ITalent[] Talents { get; } = {
+        new AbilityTalent<VoidLoop>(),
+        new SteelArmsTalent(),
     };
 }

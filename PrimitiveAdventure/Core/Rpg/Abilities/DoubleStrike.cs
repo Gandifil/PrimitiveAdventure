@@ -2,7 +2,7 @@
 
 public class DoubleStrike: Ability
 {
-    public DoubleStrike(Actor owner) : base(owner)
+    public DoubleStrike()
     {
         Name = "двойной удар";
         Description = $"наносит 5 урона цели";

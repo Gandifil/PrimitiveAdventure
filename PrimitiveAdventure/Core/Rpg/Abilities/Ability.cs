@@ -4,16 +4,20 @@ namespace PrimitiveAdventure.Core.Rpg.Abilities;
 
 public abstract class Ability: IAbility
 {
-    protected readonly Actor _owner;
+    protected Actor _owner;
     
-    public Ability(Actor owner)
+    public Ability()
     {
-        _owner = owner;
+    }
+
+    public void SetOwner(Actor newvalue)
+    {
+        _owner = newvalue;
     }
 
     public string Name { get; protected init; }
     
-    public string Description { get; protected init; }
+    public string Description { get; protected set; }
     public TargetKind TargetKind { get; protected init; }
     public bool TargetIsRequired => TargetKind != TargetKind.None;
 

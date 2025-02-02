@@ -4,7 +4,7 @@ public class SelfHeal: Ability
 {
     public int Value => 5;
     
-    public SelfHeal(Actor owner) : base(owner)
+    public SelfHeal()
     {
         Name = "Self Heal";
         Description = $"восстанавливает {Value} здоровья";
