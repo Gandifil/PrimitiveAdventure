@@ -29,10 +29,10 @@ public class PlayerFightView: ControlsConsole
         player.Stamina.Changed += () => staminaBar.Progress = player.Stamina.Progress;
 
         Controls.GetControlCursor()
-            .Print(new Label(player.Name.Prepare()))
-            .Print(new Label("Магия".Prepare()))
-            .Print(magicBar)
-            .Print(new Label("Запас сил".Prepare()))
-            .Print(staminaBar);
+            .PrintLine(new Label(player.Name.Prepare()))
+            .PrintLine(new Label("Магия".Prepare()))
+            .PrintLine(magicBar)
+            .PrintLine(new Label("Запас сил".Prepare()))
+            .PrintLine(staminaBar);
     }
 }

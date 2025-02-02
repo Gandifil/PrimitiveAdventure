@@ -5,38 +5,31 @@ namespace PrimitiveAdventure.SadConsole.Controls;
 
 public class ControlCursor(ControlHost ControlHost)
 {
-    public Point Position { get; set; }
+    public int Position { get; set; }
+    
+    public int Line { get; set; }
 
-    public int Shift { get; set; } = 0;
+    public int Shift { get; set; } = 1;
 
     public ControlCursor ToStart()
     {
-        Position = new Point(0, 0);
+        Position = 0;
+        Line = 0;
         return this;
     }
 
     public ControlCursor Print(ControlBase control)
     {
-        control.Position = Position;
-        Position += (0, control.Height + Shift);
+        control.Position = (Position, Line);
         ControlHost.Add(control);
+        Position += control.Width;
         return this;
     }
 
-    public ControlCursor Print(ControlBase control, ControlBase nextControl)
-    {
-        control.Position = Position;
-        ControlHost.Add(control);
-        
-        Position += (control.Width, 0);
-        
-        nextControl.Position = Position;
-        ControlHost.Add(nextControl);
-        
-        Position += (-control.Width, Math.Max(control.Height, nextControl.Height) + Shift);
-        
-        return this;
-    }
+    public ControlCursor PrintLine(ControlBase control) => Print(control).NewLine(Shift);
+
+    public ControlCursor PrintLine(ControlBase control, ControlBase nextControl) =>
+        Print(control).PrintLine(nextControl);
 
     public ControlCursor SetShift(int value)
     {
@@ -44,9 +37,10 @@ public class ControlCursor(ControlHost ControlHost)
         return this;
     }
 
-    public ControlCursor NewLine()
+    public ControlCursor NewLine(int shift = 1)
     {
-        Position += (0, 1);
+        Position = 0;
+        Line += shift;
         return this;
     }
 }

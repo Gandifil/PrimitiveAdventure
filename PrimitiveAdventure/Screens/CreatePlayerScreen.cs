@@ -20,9 +20,9 @@ public class CreatePlayerScreen: GlobalScreen
         Controls.GetControlCursor()
             .ToStart()
             .NewLine()
-            .Print(new Label("Введите имя персонажа".Prepare()))
-            .Print(new Label("Имя: ".Prepare()), _textBox)
-            .Print(button);
+            .PrintLine(new Label("Введите имя персонажа".Prepare()))
+            .PrintLine(new Label("Имя: ".Prepare()), _textBox)
+            .PrintLine(button);
     }
 
     private void ButtonOnClick(object? sender, EventArgs e)

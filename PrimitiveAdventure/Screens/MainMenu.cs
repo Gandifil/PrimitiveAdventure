@@ -32,9 +32,9 @@ public class MainMenu: GlobalScreen
         Controls.GetControlCursor()
             .ToStart()
             .NewLine()
-            .SetShift(1)
-            .Print(start)
-            .Print(credit)
-            .Print(exit);
+            .SetShift(2)
+            .PrintLine(start)
+            .PrintLine(credit)
+            .PrintLine(exit);
     }
 }
