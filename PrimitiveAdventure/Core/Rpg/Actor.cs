@@ -37,6 +37,7 @@ public abstract class Actor : IActor
     ILimitedValue<int> IActor.Magic => Magic;
     
     ILimitedValue<int> IActor.Stamina => Stamina;
+    public bool IsDefenced { get; set; }
 
     public void Attack(Actor target)
     {
@@ -44,7 +45,9 @@ public abstract class Actor : IActor
 
         var damageRate = isCritical ? Parameters[Parameters.Kind.CriticalDamage] : 100;
         var damage = Damage * damageRate / 100;
-        damage = Math.Max(0, damage - target.Parameters[Parameters.Kind.Armor]);
+        var armor = target.Parameters[Parameters.Kind.Armor] + 
+                    (IsDefenced? target.Parameters[Parameters.Kind.ArmorDefenceBonus] : 0);
+        damage = Math.Max(0, damage - armor);
         target.Health.Value -= damage;
         target.OnAttacked();
         
@@ -107,5 +110,10 @@ public abstract class Actor : IActor
     private void OnAttacked()
     {
         Attacked?.Invoke();
+    }
+
+    public void Tick()
+    {
+        IsDefenced = false;
     }
 }

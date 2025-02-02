@@ -16,6 +16,7 @@ public class Parameters: IParameters
         AttackDamage,
         Armor,
         ArmorPenetration,
+        ArmorDefenceBonus,
         CriticalRate,
         CriticalDamage,
         CounterAttackRate,
@@ -39,6 +40,7 @@ public class Parameters: IParameters
         foreach (var (kind, _) in _values)
             _values[kind].Value = kind switch
             {
+                Kind.ArmorDefenceBonus => 5,
                 Kind.CriticalRate => 50,
                 Kind.CriticalDamage => 200,
                 _ => 0,

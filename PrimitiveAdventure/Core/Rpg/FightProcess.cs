@@ -46,23 +46,19 @@ public class FightProcess
         }
         _all.ForEach(x => x.Controller.Update(this));
     }
-
-    private int index = 0;
-
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public void Run()
     {
-        for (; ; index++)
+        foreach (var actor in _all.OrderBy(x => x.Controller.Move.Order))
+            actor.Controller.Move.Apply(this, actor);
+
+        foreach (var actor in _all)
         {
-            var actor = _all[index % _all.Count];
-            var controller = actor.Controller;
-            if (controller.HasPredictedMove)
-            {
-                controller.Move.Apply(this, actor);
-                _all.ForEach(x => x.Controller.Update(this));
-                //controller.Update(this);
-            }
-            else
-            return;
+            actor.Tick();
+            actor.Controller.Update(this);
         }
     }
 }

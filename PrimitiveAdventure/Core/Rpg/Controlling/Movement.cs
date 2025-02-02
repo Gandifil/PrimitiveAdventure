@@ -4,6 +4,7 @@ namespace PrimitiveAdventure.Core.Rpg.Controlling;
 
 public class Movement(int Direction): IMove
 {
+    public int Order => 5;
     public string DisplayText => Direction == -1 ? "<--" : "-->";
     
     public void Apply(FightProcess fightProcess, Actor actor)

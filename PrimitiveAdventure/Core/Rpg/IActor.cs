@@ -28,5 +28,7 @@ public interface IActor
     
     bool IsAlive { get; }
 
+    bool IsDefenced { get; }
+
     event Action Attacked;
 }

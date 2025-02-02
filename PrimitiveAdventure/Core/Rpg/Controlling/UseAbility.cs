@@ -4,6 +4,7 @@ namespace PrimitiveAdventure.Core.Rpg.Controlling;
 
 public class UseAbility(IAbility Ability, IActor? Target = null): IMove
 {
+    public int Order => 5;
     public string DisplayText => "*";
     public void Apply(FightProcess fightProcess, Actor actor)
     {
