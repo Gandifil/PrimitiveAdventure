@@ -51,10 +51,9 @@ public class FightProcess
         }
         _all.ForEach(x => x.Controller.Update(this));
     }
+
+    public event EventHandler<int> Finished; 
     
-    /// <summary>
-    /// 
-    /// </summary>
     public void Run()
     {
         foreach (var actor in _all.OrderBy(x => x.Controller.Move.Order))
@@ -65,5 +64,11 @@ public class FightProcess
             actor.Tick();
             actor.Controller.Update(this);
         }
+
+        if (_team1.Any(x => x.Health.Value <= 0))
+            Finished?.Invoke(this, 2);
+        
+        if (_team2.Any(x => x.Health.Value <= 0))
+            Finished?.Invoke(this, 1);
     }
 }

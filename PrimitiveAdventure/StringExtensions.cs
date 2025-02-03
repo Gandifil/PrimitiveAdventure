@@ -7,6 +7,8 @@ public static class StringExtensions
         char transform(char c)
         {
             c = char.ToLower(c);
+            if (c == 'ё') 
+                c = 'е';
             var k = c - 'а';
             return (char)(128 + k);
         }

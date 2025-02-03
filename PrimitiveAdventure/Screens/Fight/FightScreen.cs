@@ -5,6 +5,7 @@ using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.Screens.Base;
+using PrimitiveAdventure.Screens.Views;
 using PrimitiveAdventure.Ui.Controls;
 using SadConsole.Input;
 using SadConsole.UI;
@@ -30,6 +31,7 @@ public class FightScreen: GlobalScreen
     public FightScreen(FightProcess fightProcess)
     {
         _fightProcess = fightProcess;
+        _fightProcess.Finished += FightProcessOnFinished;
 
         
         _attackButton = new KeyedButton("атака".Prepare(), Keys.A);
@@ -82,6 +84,14 @@ public class FightScreen: GlobalScreen
         
         Update();
         IsDirty = true;
+    }
+
+    private void FightProcessOnFinished(object? sender, int wonTeam)
+    {
+        if (wonTeam == 1)
+            new BackScreen<Credits>((_, _) => this.Start()).Start();
+        else
+            new BackScreen<FailView>((_, _) => new MainMenu().Start()).Start();
     }
 
     private void AbilityOnSelectedSuccessfully(IAbility ability)
