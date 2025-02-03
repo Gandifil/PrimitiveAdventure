@@ -11,6 +11,9 @@ public class ItemCell(IItem Item): IGlobalMapCell
 
     public void OnCollisionWith(Player player)
     {
-        new ChooseItemScreen(player, Item).Start();
+        new ChooseItemScreen(player, Item)
+        {
+            BackScreen = Game.Instance.Screen,
+        }.Start();
     }
 }

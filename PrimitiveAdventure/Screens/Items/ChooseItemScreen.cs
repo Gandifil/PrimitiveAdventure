@@ -1,6 +1,8 @@
 ﻿using PrimitiveAdventure.Core;
 using PrimitiveAdventure.Core.Rpg.Items;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Controls;
+using PrimitiveAdventure.SadConsole.Screens;
 using PrimitiveAdventure.Screens.Base;
 using SadConsole.Input;
 
@@ -40,10 +42,19 @@ public class ChooseItemScreen: GlobalScreen
 
     private void StayButtonOnClick(object? sender, EventArgs e)
     {
+        ReturnBack();
+    }
+    
+    public IScreenObject? BackScreen { get; init; }
+
+    private void ReturnBack()
+    {
+        BackScreen?.Start();
     }
 
     private void ChangeButtonOnClick(object? sender, EventArgs e)
     {
         _player.Equipment.setItem(_item);
+        ReturnBack();
     }
 }
