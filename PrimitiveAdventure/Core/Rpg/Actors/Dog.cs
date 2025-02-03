@@ -7,6 +7,6 @@ public class Dog: Actor
     public Dog()
     {
         Name = "ацкий пес";
-        Parameters[Parameters.Kind.Armor].Value += 5;
+        Parameters[Parameters.Kind.Armor].Value += 1;
     }
 }
