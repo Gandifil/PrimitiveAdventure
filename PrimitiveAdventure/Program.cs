@@ -25,8 +25,18 @@ void Startup(object? sender, GameHost host)
 {
     Settings.ResizeMode = Settings.WindowResizeOptions.Scale;
 
-    if (args.Contains("-test"))
-        new GameState(GlobalMap.TestMap(), new Player()).StartScreen();
+    if (args.Contains("--test"))
+    {
+        var player = new Player();
+        var level = args.FirstOrDefault(x => x.StartsWith("--level="));
+        if (level is not null)
+        {
+            var value = level.Split('=')[1];
+            player.LevelUp(int.Parse(value));
+        }
+        
+        new GameState(GlobalMap.TestMap(), player).StartScreen();
+    }
     else if (args.Contains("--test-fight"))
         new FightScreen(new FightProcess(new Player(), [new Dog()])).Start();
     else

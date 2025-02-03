@@ -33,18 +33,19 @@ public class GameState
 
     public void StartScreen()
     {
+        if (Player.Masteries.Count() < Player.MasteryPoints)
+        {
+            var screen = new MasteryChooseScreen(Player.Masteries);
+            screen.SelectedSuccessfully += mastery =>
+            {
+                Player.Masteries.Add(mastery);
+                StartScreen();
+            };
+            screen.Start();
+            return;
+        }
+            
         var global = new GlobalModeScreen(this);
-        
-        // var sMasteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
-        // {
-        //     BackScreen = global,
-        // };
-        //
-        // var masteryChooseScreen = new MasteryChooseScreen(Player.Masteries)
-        // {
-        //     BackScreen = sMasteryChooseScreen,
-        // };
-        
         global.Start();
     }
 }

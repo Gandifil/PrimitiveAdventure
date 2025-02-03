@@ -1,4 +1,5 @@
-﻿using PrimitiveAdventure.Core.Rpg.Masteries;
+﻿using PrimitiveAdventure.Core;
+using PrimitiveAdventure.Core.Rpg.Masteries;
 using PrimitiveAdventure.Screens.Base;
 using PrimitiveAdventure.Screens.Views;
 

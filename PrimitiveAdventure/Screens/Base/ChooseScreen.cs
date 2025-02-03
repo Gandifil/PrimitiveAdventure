@@ -15,7 +15,7 @@ public class ChooseScreen<T>: BaseScreen where T: class
     
     public T? Selected { get; private set; }
     
-    public required BaseScreen BackScreen { get; init; }
+    public BaseScreen? BackScreen { get; init; }
 
     public event Action<T> SelectedSuccessfully;
 

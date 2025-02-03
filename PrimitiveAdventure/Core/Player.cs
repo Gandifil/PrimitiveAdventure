@@ -60,7 +60,7 @@ public class Player: Actor, IPlayer, ISaveable
 
     public int Level { get; private set; } = 1;
 
-    public int MasteryPoints { get; private set; } = 0;
+    public int MasteryPoints { get; private set; } = 1;
 
     public void LevelUp(int value)
     {
