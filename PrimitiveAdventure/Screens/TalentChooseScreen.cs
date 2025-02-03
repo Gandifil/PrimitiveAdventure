@@ -8,11 +8,6 @@ public class TalentChooseScreen: ChooseScreen<TalentHandler>
 {
     public TalentChooseScreen(IReadOnlyList<TalentHandler> elements) : base(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT, elements, false)
     {
-        var entityView = new TalentView(Width / 2, Height - 2)
-        {
-            Position = (Width / 2, 0),
-        };
-        _entityView = entityView;
-        Children.Add(entityView);
+        SetView(new TalentView(Width / 2, Height - 4));
     }
 }

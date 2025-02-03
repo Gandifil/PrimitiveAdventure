@@ -9,6 +9,7 @@ namespace PrimitiveAdventure.Screens.Base;
 public class ChooseScreen<T>: BaseScreen where T: class
 {
     private readonly Button enterButton;
+    private readonly Console _titleConsole;
     private readonly IReadOnlyCollection<T> _elements;
     protected IEntityView<T> _entityView;
     //private readonly TextBox _description;
@@ -16,6 +17,21 @@ public class ChooseScreen<T>: BaseScreen where T: class
     public T? Selected { get; private set; }
     
     public BaseScreen? BackScreen { get; init; }
+    
+    private string? _title;
+
+    public string? Title
+    {
+        get => _title; 
+        init
+        {
+            _title = value;
+            _titleConsole.Surface.Clear();
+            _titleConsole.Cursor.Position = new Point(0, 0);
+            if (_title is not null)
+                _titleConsole.Cursor.Print(_title.Prepare());
+        }
+    }
 
     public event Action<T> SelectedSuccessfully;
 
@@ -35,6 +51,8 @@ public class ChooseScreen<T>: BaseScreen where T: class
     public ChooseScreen(int width, int height, IReadOnlyList<T> elements, bool showExitButton = true) : base(width, height)
     {
         _elements = elements;
+        
+        Children.Add(_titleConsole = new Console(width, 1));
 
         if (showExitButton)
         {
@@ -54,9 +72,9 @@ public class ChooseScreen<T>: BaseScreen where T: class
         enterButton.Click += EnterButtonOnClick;
         Controls.Add(enterButton);
 
-        var list = new ListBox(width / 2, height - 3)
+        var list = new ListBox(width / 2, height - 4)
         {
-            Position = (1, 1)
+            Position = (1, 3)
         };
         list.SelectedItemChanged += ListOnSelectedItemChanged;
         Controls.Add(list);
@@ -86,5 +104,12 @@ public class ChooseScreen<T>: BaseScreen where T: class
         enterButton.IsEnabled = true;
         Selected = (T)e.Item!;
         _entityView.Set(Selected);
+    }
+
+    protected void SetView<TView>(TView view) where TView : IScreenObject, IEntityView<T>
+    {
+        view.Position = (Width / 2, 2);
+        _entityView = view;
+        Children.Add(view);
     }
 }

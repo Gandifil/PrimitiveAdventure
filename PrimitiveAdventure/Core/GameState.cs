@@ -34,7 +34,10 @@ public class GameState
     {
         if (Player.Masteries.Count() < Player.MasteryPoints)
         {
-            var screen = new MasteryChooseScreen(Player.Masteries.GetFreeMastery());
+            var screen = new MasteryChooseScreen(Player.Masteries.GetFreeMastery())
+            {
+                Title = "Выберите мастерство для изучения"
+            };
             screen.SelectedSuccessfully += mastery =>
             {
                 Player.Masteries.Add(mastery);
@@ -46,11 +49,17 @@ public class GameState
         
         if (Player.Masteries.AllLevels < Player.Level)
         {
-            var mscreen = new MasteryChooseScreen(Player.Masteries.Select(x => x.Mastery).ToList());
+            var mscreen = new MasteryChooseScreen(Player.Masteries.Select(x => x.Mastery).ToList())
+            {
+                Title = "Выберите мастерство для получения таланта"
+            };
             mscreen.SelectedSuccessfully += mastery =>
             {
                 var handler = Player.Masteries.First(x => x.Mastery == mastery);
-                var screen = new TalentChooseScreen(handler.TalentHandlers);
+                var screen = new TalentChooseScreen(handler.TalentHandlers)
+                {
+                    Title = "Выберите талант для изучения"
+                };
                 screen.SelectedSuccessfully += talent =>
                 {
                     Debug.Assert(talent.CanUpgrade);
