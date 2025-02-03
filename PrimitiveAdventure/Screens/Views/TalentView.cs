@@ -18,6 +18,7 @@ public class TalentView: Console, IEntityView<TalentHandler>
         Cursor.UseStringParser = true;
         
         Cursor.PrintText(entity.Talent.Description.Prepare());
+        ViewHelper.Print(Cursor, entity.CurrentModifiersList);
         SadComponents.Add(new LineCharacterFade(TimeSpan.FromMilliseconds(500)));
     }
 }
