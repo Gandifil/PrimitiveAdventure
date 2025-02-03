@@ -58,7 +58,8 @@ public class GameState
                 var handler = Player.Masteries.First(x => x.Mastery == mastery);
                 var screen = new TalentChooseScreen(handler.TalentHandlers)
                 {
-                    Title = "Выберите талант для изучения"
+                    Title = "Выберите талант для изучения",
+                    BackScreen = mscreen,
                 };
                 screen.SelectedSuccessfully += talent =>
                 {
