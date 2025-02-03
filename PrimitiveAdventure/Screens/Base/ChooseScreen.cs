@@ -63,7 +63,7 @@ public class ChooseScreen<T>: BaseScreen where T: class
             Controls.Add(exitButton);
         }
 
-        enterButton = new KeyedButton("выбрать".Prepare(), Keys.Enter)
+        enterButton = new KeyedButton("выбрать".Prepare(), Keys.Space)
         {
             Position = (width-"выбрать".Length -15, height - 1),
             IsEnabled = false

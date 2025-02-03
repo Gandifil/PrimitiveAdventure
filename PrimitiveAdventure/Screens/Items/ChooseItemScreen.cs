@@ -23,7 +23,7 @@ public class ChooseItemScreen: GlobalScreen
         stayButton.Click += StayButtonOnClick;
         Controls.Add(stayButton);
         
-        var changeButton = new KeyedButton("Взять".Prepare(), Keys.Enter)
+        var changeButton = new KeyedButton("Взять".Prepare(), Keys.Space)
         {
             Position = (Width / 2, Height - 1)
         };
