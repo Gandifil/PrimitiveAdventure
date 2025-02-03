@@ -42,9 +42,13 @@ public abstract class Actor : IActor
     ILimitedValue<int> IActor.Stamina => Stamina;
     public bool IsDefenced { get; set; }
 
-    public void Attack(Actor target)
+    public Actor()
     {
         Effects = new EffectHost(this);
+    }
+
+    public void Attack(Actor target)
+    {
         var isCritical = Dice(Parameters[Parameters.Kind.CriticalRate]);
 
         var damageRate = isCritical ? Parameters[Parameters.Kind.CriticalDamage] : 100;
