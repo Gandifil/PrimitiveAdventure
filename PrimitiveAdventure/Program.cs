@@ -30,6 +30,7 @@ void Startup(object? sender, GameHost host)
     if (args.Contains("--test"))
     {
         var player = new Player();
+        player.LevelUp(10);
         var level = args.FirstOrDefault(x => x.StartsWith("--level="));
         if (level is not null)
         {
