@@ -84,7 +84,7 @@ public class GlobalMap: IGlobalMap
         enemyGroup1.Enemies.Add(new Dog());
         map.Spawn(enemyGroup1, 2, 3);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             var enemyGroup = new EnemyGroup();
             enemyGroup.Enemies.Add(new Dog());

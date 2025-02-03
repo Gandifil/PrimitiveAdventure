@@ -10,6 +10,10 @@ public class WeaponsExpertiseMastery: Mastery
     public override ITalent[] Talents { get; } =
     [
         new CounterattackSkillTalent(),
+        new CounterattackSkillTalent(),
         new DaggerTalent(),
+        new DaggerTalent(),
+        new MaceTalent(),
+        new MaceTalent(),
     ];
 }

@@ -10,5 +10,7 @@ public class HandToHandCombatMastery: Mastery
     public override ITalent[] Talents { get; } = {
         new AbilityTalent<VoidLoop>(),
         new SteelArmsTalent(),
+        new SteelArmsTalent(),
+        new SteelArmsTalent(),
     };
 }
