@@ -20,6 +20,7 @@ public class MasteryManager: IEnumerable<MasteryHandler>
         AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => type.IsAssignableTo(typeof(IMastery)) && !type.IsAbstract)
+            .Except(_masteryHandlers.Select(x => x.Mastery.GetType()))
             .Select(type => Activator.CreateInstance(type) as IMastery)
             .ToArray();
 
