@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Masteries;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Effects;
 using PrimitiveAdventure.Screens.Base;
 using SadConsole.UI;
@@ -16,7 +17,7 @@ public class MasteryView: ControlsConsole, IEntityView<IMastery>
         Surface.Clear();
         Cursor.Position = new Point(0, 0);
         
-        Cursor.Print(entity.Description.Prepare());
+        Cursor.PrintText(entity.Description.Prepare());
         SadComponents.Add(new LineCharacterFade(TimeSpan.FromMilliseconds(500)));
     }
 }

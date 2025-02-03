@@ -12,6 +12,4 @@ public static class StringExtensions
         }
         return new string(str.Select(x => char.IsAscii(x) ? x : transform(x)).ToArray());
     }
-
-    
 }

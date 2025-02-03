@@ -8,7 +8,7 @@ public abstract class ComboAbility: Ability
     public ComboAbility()
     {
         Description += "\nЕсли предыдущее действие не совпадает с текущим, дает Комбо, если совпадает - забирает.";
-        Description += "\nКаждое комбо увеличивает урон на 1.";
+        Description += "\nКаждое Комбо увеличивает урон на 1.";
         TargetKind = TargetKind.Enemy;
     }
 

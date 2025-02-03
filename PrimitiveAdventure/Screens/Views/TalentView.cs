@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Masteries;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Effects;
 using PrimitiveAdventure.Screens.Base;
 
@@ -14,8 +15,9 @@ public class TalentView: Console, IEntityView<TalentHandler>
     {
         Surface.Clear();
         Cursor.Position = new Point(0, 0);
+        Cursor.UseStringParser = true;
         
-        Cursor.Print(entity.Talent.Description.Prepare());
+        Cursor.PrintText(entity.Talent.Description.Prepare());
         SadComponents.Add(new LineCharacterFade(TimeSpan.FromMilliseconds(500)));
     }
 }

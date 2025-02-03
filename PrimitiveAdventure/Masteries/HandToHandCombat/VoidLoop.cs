@@ -11,8 +11,8 @@ public class VoidLoop: ComboAbility
     public VoidLoop()
     {
         Name = "Петля Пустоты";
-        Description = "Магия - лишь иллюзия. Иллюзии разрываются.\n" + Description;
-        Description = "Забирает треть магии цели (минимум - 30), восполняет за счет нее запас сил и наносит урон.\n" + Description;
+        Description = "[c:r f:Yellow]Магия - лишь иллюзия. Иллюзии разрываются[c:u 1]\nЗабирает треть магии цели (минимум - 30), восполняет за счет нее запас сил и наносит урон." 
+                      + Description;
         Cost = new CostData(Magic: 10, Stamina: 10);
     }
 
