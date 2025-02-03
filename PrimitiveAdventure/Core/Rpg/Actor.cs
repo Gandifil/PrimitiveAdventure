@@ -141,6 +141,7 @@ public abstract class Actor : IActor
 
     public void Assign(FightMapView mapView)
     {
+        Health.Value = Health.MaxValue;
         MapView = mapView;
     }
 }
