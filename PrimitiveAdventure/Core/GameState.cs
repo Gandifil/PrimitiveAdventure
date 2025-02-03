@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
+using System.Drawing;
 using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
+using Point = SadRogue.Primitives.Point;
+using Rectangle = SadRogue.Primitives.Rectangle;
 
 namespace PrimitiveAdventure.Core;
 
@@ -27,11 +30,15 @@ public class GameState
     public void MovePlayer(Point shift)
     {
         var newPosition = Player.GlobalPosition + shift;
-        var nextCell = GlobalMap[newPosition];
+
+        if (new Rectangle(Point.Zero, GlobalMap.Size - (1, 1)).Contains(newPosition))
+        {
+            var nextCell = GlobalMap[newPosition];
         
-        GlobalMap.Move(Player.GlobalPosition, newPosition);
-        Player.GlobalPosition = newPosition;
-        nextCell?.OnCollisionWith(Player);
+            GlobalMap.Move(Player.GlobalPosition, newPosition);
+            Player.GlobalPosition = newPosition;
+            nextCell?.OnCollisionWith(Player);
+        }
     }
 
     public void StartScreen()
