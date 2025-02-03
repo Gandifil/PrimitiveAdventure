@@ -28,6 +28,9 @@ public class CreatePlayerScreen: GlobalScreen
     private void ButtonOnClick(object? sender, EventArgs e)
     {
         if (_textBox.Text.Length > 0)
-            new GameState(GlobalMap.GenerateMap(), new Player()).StartScreen();
+            new GameState(GlobalMap.GenerateMap(), new Player()
+            {
+                Name = _textBox.Text,
+            }).StartScreen();
     }
 }

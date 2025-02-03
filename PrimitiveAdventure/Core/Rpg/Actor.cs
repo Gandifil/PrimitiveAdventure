@@ -9,7 +9,7 @@ namespace PrimitiveAdventure.Core.Rpg;
 
 public abstract class Actor : IActor
 {
-    public string Name { get; protected set; }
+    public string Name { get; set; }
     public Point LocalPosition { get; set; }
 
     public LimitedValue<int> Health { get; } = new(10);
