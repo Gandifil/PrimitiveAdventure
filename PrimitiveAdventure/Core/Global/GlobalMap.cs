@@ -15,7 +15,7 @@ public interface IGlobalMap
 
 public class GlobalMap: IGlobalMap
 {
-    private readonly IGlobalMapCell[,] _cells;
+    private readonly IGlobalMapCell?[,] _cells;
     
     private readonly BitArray _doors;
     
@@ -49,6 +49,20 @@ public class GlobalMap: IGlobalMap
         _cells[row, column] = cell;
     }
 
+    public void Spawn(IGlobalMapCell cell)
+    {
+        while (true)
+        {
+            var row = Random.Shared.Next(0, Size.X);
+            var column = Random.Shared.Next(0, Size.Y);
+            if (_cells[row, column] is null)
+            {
+                Spawn(cell, row, column);
+                return;
+            }
+        }
+    }
+
     public void Move(Point from, Point to)
     {
         this[to] = this[from];
@@ -61,13 +75,22 @@ public class GlobalMap: IGlobalMap
 
     public static GlobalMap TestMap()
     {
-        var map = new GlobalMap(new Point(10, 10));
-        map.Spawn(new Chest(), 1, 1);
-        map.Spawn(new Chest(), 4, 4);
+        var map = new GlobalMap(new Point(20, 20));
+        // map.Spawn(new Chest(), 1, 1);
+        // map.Spawn(new Chest(), 4, 4);
         map.Spawn(new ItemCell(new Sword()), 3, 4);
-        var enemyGroup = new EnemyGroup();
-        enemyGroup.Enemies.Add(new Dog());
-        map.Spawn(enemyGroup, 2, 3);
+        
+        var enemyGroup1 = new EnemyGroup();
+        enemyGroup1.Enemies.Add(new Dog());
+        map.Spawn(enemyGroup1, 2, 3);
+
+        for (int i = 0; i < 5; i++)
+        {
+            var enemyGroup = new EnemyGroup();
+            enemyGroup.Enemies.Add(new Dog());
+            map.Spawn(enemyGroup);
+        }
+        
         return map;
     }
 
