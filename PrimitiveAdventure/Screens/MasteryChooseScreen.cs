@@ -7,12 +7,9 @@ namespace PrimitiveAdventure.Screens;
 
 public class MasteryChooseScreen: ChooseScreen<IMastery>
 {
-    private readonly MasteryManager _manager;
-
-    public MasteryChooseScreen(MasteryManager manager) 
-        : base(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT, manager.GetFreeMastery(), false)
+    public MasteryChooseScreen(IReadOnlyList<IMastery> masteries) 
+        : base(GameSettings.GAME_WIDTH, GameSettings.GAME_HEIGHT, masteries, false)
     {
-        _manager = manager;
         var entityView = new MasteryView(Width / 2, Height - 2)
         {
             Position = (Width / 2, 0),

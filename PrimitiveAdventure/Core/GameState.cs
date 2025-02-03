@@ -1,6 +1,5 @@
-﻿using PrimitiveAdventure.Core.Global;
-using PrimitiveAdventure.Core.Rpg.Actors;
-using PrimitiveAdventure.Core.Rpg.Items;
+﻿using System.Diagnostics;
+using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 
@@ -35,7 +34,7 @@ public class GameState
     {
         if (Player.Masteries.Count() < Player.MasteryPoints)
         {
-            var screen = new MasteryChooseScreen(Player.Masteries);
+            var screen = new MasteryChooseScreen(Player.Masteries.GetFreeMastery());
             screen.SelectedSuccessfully += mastery =>
             {
                 Player.Masteries.Add(mastery);
@@ -44,8 +43,26 @@ public class GameState
             screen.Start();
             return;
         }
+        
+        if (Player.Masteries.AllLevels < Player.Level)
+        {
+            var mscreen = new MasteryChooseScreen(Player.Masteries.Select(x => x.Mastery).ToList());
+            mscreen.SelectedSuccessfully += mastery =>
+            {
+                var handler = Player.Masteries.First(x => x.Mastery == mastery);
+                var screen = new TalentChooseScreen(handler.TalentHandlers);
+                screen.SelectedSuccessfully += talent =>
+                {
+                    Debug.Assert(talent.CanUpgrade);
+                    talent.Upgrade(Player);
+                    StartScreen();
+                };
+                screen.Start();
+            };
+            mscreen.Start();
+            return;
+        }
             
-        var global = new GlobalModeScreen(this);
-        global.Start();
+        new GlobalModeScreen(this).Start();
     }
 }

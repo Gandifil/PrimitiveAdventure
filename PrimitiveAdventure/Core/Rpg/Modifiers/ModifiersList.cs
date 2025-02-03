@@ -2,13 +2,13 @@
 
 public class ModifiersList: List<IModifier>
 {
-    void Assign(Actor actor)
+    public void Assign(Actor actor)
     {
         foreach (var mod in this)
             mod.Assign(actor);
     }
 
-    void Cancel(Actor actor)
+    public void Cancel(Actor actor)
     {
         foreach (var mod in this)
             mod.Cancel(actor);

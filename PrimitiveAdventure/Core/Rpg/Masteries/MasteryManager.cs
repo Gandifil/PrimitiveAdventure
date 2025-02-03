@@ -12,6 +12,10 @@ public class MasteryManager: IEnumerable<MasteryHandler>
         _player = player;
     }
 
+    public int AllLevels => _masteryHandlers
+        .SelectMany(m => m.TalentHandlers.Select(t => t.Level))
+        .Sum();
+
     public IMastery[] GetFreeMastery() =>
         AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly => assembly.GetTypes())

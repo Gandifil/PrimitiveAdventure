@@ -1,22 +1,21 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Masteries;
 using PrimitiveAdventure.SadConsole.Effects;
 using PrimitiveAdventure.Screens.Base;
-using SadConsole.UI;
 
 namespace PrimitiveAdventure.Screens.Views;
 
-public class MasteryView: ControlsConsole, IEntityView<IMastery>
+public class TalentView: Console, IEntityView<TalentHandler>
 {
-    public MasteryView(int width, int height) : base(width, height)
+    public TalentView(int width, int height) : base(width, height)
     {
     }
 
-    public void Set(IMastery entity)
+    public void Set(TalentHandler entity)
     {
         Surface.Clear();
         Cursor.Position = new Point(0, 0);
         
-        Cursor.Print(entity.Description.Prepare());
+        Cursor.Print(entity.Talent.Description.Prepare());
         SadComponents.Add(new LineCharacterFade(TimeSpan.FromMilliseconds(500)));
     }
 }
