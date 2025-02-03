@@ -23,8 +23,13 @@ public class MasteryManager: IEnumerable<MasteryHandler>
             .Select(type => Activator.CreateInstance(type) as IMastery)
             .ToArray();
 
-    public void Add(IMastery mastery) => _masteryHandlers.Add(new MasteryHandler(mastery));
-    
+    public MasteryHandler Add(IMastery mastery)
+    {
+        var result = new MasteryHandler(mastery);
+        _masteryHandlers.Add(result);
+        return result;
+    }
+
     private List<MasteryHandler>.Enumerator GetEnumerator() => _masteryHandlers.GetEnumerator();
 
     IEnumerator<MasteryHandler> IEnumerable<MasteryHandler>.GetEnumerator()

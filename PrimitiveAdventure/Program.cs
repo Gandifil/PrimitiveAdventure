@@ -2,6 +2,8 @@
 using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Actors;
+using PrimitiveAdventure.Core.Rpg.Masteries;
+using PrimitiveAdventure.Masteries.HandToHandCombat;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 using PrimitiveAdventure.Screens.Fight;
@@ -38,7 +40,11 @@ void Startup(object? sender, GameHost host)
         new GameState(GlobalMap.TestMap(), player).StartScreen();
     }
     else if (args.Contains("--test-fight"))
-        new FightScreen(new FightProcess(new Player(), [new Dog()])).Start();
+    {
+        var player = new Player();
+        player.Masteries.Add(new HandToHandCombatMastery()).Get<AbilityTalent<VoidLoop>>()!.Upgrade(player);
+        new FightScreen(new FightProcess(player, [new Dog()])).Start();
+    }
     else
         new MainMenu().Start();
 }

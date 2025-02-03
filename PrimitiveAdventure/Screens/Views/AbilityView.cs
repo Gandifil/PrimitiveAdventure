@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
+using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Effects;
 using PrimitiveAdventure.Screens.Base;
 
@@ -15,19 +16,21 @@ public class AbilityView: Console, IEntityView<IAbility>
     {
         //SadComponents.Clear();
         Surface.Clear();
+        Cursor.Position = Point.Zero;
+        Cursor.UseStringParser = true;
+        
 
         var Selected = entity;
         var cursor = Cursor;
-        cursor.Position = new Point(0, 0);
-        cursor.NewLine().Print(Selected.Description.Prepare());
+        cursor.PrintText(Selected.Description.Prepare());
 
         if (Selected.TargetIsRequired)
         {
-            cursor.NewLine().Print("Требуется цель:".Prepare());
+            cursor.NewLine().Tab().Print("Требуется цель:".Prepare());
             if (Selected.TargetKind.HasFlag(TargetKind.Friend))
-                cursor.NewLine().SetPrintAppearance(Color.Green).Print("Друг".Prepare());
+                cursor.NewLine().Tab().Tab().SetPrintAppearance(Color.Green).Print("Друг".Prepare());
             if (Selected.TargetKind.HasFlag(TargetKind.Enemy))
-                cursor.NewLine().SetPrintAppearance(Color.Red).Print("Враг".Prepare());
+                cursor.NewLine().Tab().Tab().SetPrintAppearance(Color.Red).Print("Враг".Prepare());
             cursor.SetPrintAppearanceToHost();
         }
 
@@ -35,13 +38,13 @@ public class AbilityView: Console, IEntityView<IAbility>
         {
             cursor.NewLine().Print("цена:".Prepare());
             if (Selected.Cost.Health != 0)
-                cursor.NewLine().Print("  ")
+                cursor.NewLine().Tab()
                     .Print("жизнь: ".Prepare()).Print(Selected.Cost.Health.ToString());
             if (Selected.Cost.Magic != 0)
-                cursor.NewLine().Print("  ")
+                cursor.NewLine().Tab()
                     .Print("магия: ".Prepare()).Print(Selected.Cost.Magic.ToString());
             if (Selected.Cost.Stamina != 0)
-                cursor.NewLine().Print("  ")
+                cursor.NewLine().Tab()
                     .Print("запас сил: ".Prepare()).Print(Selected.Cost.Stamina.ToString());
         }
         
