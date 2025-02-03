@@ -2,7 +2,7 @@
 
 namespace PrimitiveAdventure.Core.Rpg;
 
-public class IFightMapView
+public interface IFightMapView
 {
     public IReadOnlyCollection<IActor> Friends { get; }
     
@@ -26,12 +26,14 @@ public class IFightMapView
 
 public class FightMapView: IFightMapView
 {
-    
     public IReadOnlyCollection<Actor> Friends { get; }
+    IReadOnlyCollection<IActor> IFightMapView.Friends => Friends;
     
     public IReadOnlyCollection<Actor> Enemies { get; }
+    IReadOnlyCollection<IActor> IFightMapView.Enemies => Enemies;
     
     public IReadOnlyCollection<Actor> All { get; }
+    IReadOnlyCollection<IActor> IFightMapView.All => All;
 
     private readonly FightProcess _fightProcess;
 
