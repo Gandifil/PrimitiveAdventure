@@ -67,7 +67,7 @@ public class GameState
             mscreen.SelectedSuccessfully += mastery =>
             {
                 var handler = Player.Masteries.First(x => x.Mastery == mastery);
-                var screen = new TalentChooseScreen(handler.TalentHandlers)
+                var screen = new TalentChooseScreen(handler.TalentHandlers.Where(x => x.CanUpgrade).ToList())
                 {
                     Title = "Выберите талант для изучения",
                     BackScreen = mscreen,
