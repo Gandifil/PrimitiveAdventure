@@ -57,9 +57,13 @@ public abstract class Actor : IActor
                     (target.IsDefenced? target.Parameters[Parameters.Kind.ArmorDefenceBonus] : 0);
         damage = Math.Max(0, damage - armor);
         target.Health.Value -= damage;
-        target.OnAttacked();
+        target.OnAttacked(this);
         
         FightLog.Instance.PrintLine(GetAttackText(target, isCritical, damage));
+        
+        // TODO: potential dead lock
+        if (Dice(Parameters[Parameters.Kind.RepeatAttackRate]))
+            Attack(target);
     }
 
     private string GetAttackText(Actor target, bool isCritical, int damage)
@@ -115,8 +119,10 @@ public abstract class Actor : IActor
 
     public event Action Attacked;
 
-    private void OnAttacked()
+    private void OnAttacked(Actor attacker)
     {
+        if (IsDefenced && Dice(Parameters[Parameters.Kind.CounterAttackRate]))
+            Attack(attacker);
         Attacked?.Invoke();
     }
 

@@ -11,6 +11,7 @@ public record ParamMod(Parameters.Kind Kind, int Amount) : IModifier
         {Parameters.Kind.CriticalRate, "+{0}% к шансу крита"},
         {Parameters.Kind.CriticalDamage, "+{0}% к бонусу при крите"},
         {Parameters.Kind.CounterAttackRate, "+{0} к шансу контратаки"},
+        {Parameters.Kind.RepeatAttackRate, "+{0} к шансу повторения атаки"},
     };
     public string Line => string.Format(_templates[Kind], Amount);
     public void Assign(Actor actor)

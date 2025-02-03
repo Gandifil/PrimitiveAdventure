@@ -20,6 +20,7 @@ public class Parameters: IParameters
         CriticalRate,
         CriticalDamage,
         CounterAttackRate,
+        RepeatAttackRate,
     }
 
     private readonly Dictionary<Kind, ObservedValue<int>> _values = new();
@@ -41,7 +42,7 @@ public class Parameters: IParameters
             _values[kind].Value = kind switch
             {
                 Kind.ArmorDefenceBonus => 5,
-                Kind.CriticalRate => 50,
+                Kind.CriticalRate => 10,
                 Kind.CriticalDamage => 200,
                 _ => 0,
             };
