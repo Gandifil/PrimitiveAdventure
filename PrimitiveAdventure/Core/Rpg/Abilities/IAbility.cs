@@ -12,5 +12,5 @@ public interface IAbility: INamed
     
     CostData Cost { get; }
     
-    bool IsUsableBy(IActor p);
+    bool IsUsableBy(IActor? p = null);
 }

@@ -120,4 +120,17 @@ public abstract class Actor : IActor
     {
         IsDefenced = false;
     }
+    
+    public FightMapView MapView { get; set; }
+
+    public IActor[] EnemiesOnAttackLine()
+    {
+        return MapView.Enemies.Where(x => x.LocalPosition.X == LocalPosition.X + Direction)
+            .ToArray<IActor>();
+    }
+
+    public void Assign(FightMapView mapView)
+    {
+        MapView = mapView;
+    }
 }

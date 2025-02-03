@@ -39,9 +39,14 @@ public class FightProcess
 
         _fightMapViewTeam1 = new FightMapView(this, false);
         _fightMapViewTeam2 = new FightMapView(this, true);
+        for (int i = 0; i < _team1.Count; i++)
+        {
+            _team1[i].Assign(_fightMapViewTeam1);
+        }
         for (int i = 0; i < _team2.Count; i++)
         {
             _team2[i].Controller = new AiController(_team2[i], _fightMapViewTeam2);
+            _team2[i].Assign(_fightMapViewTeam2);
             _team2[i].LocalPosition = (MAP_WIDTH - 1, i);
         }
         _all.ForEach(x => x.Controller.Update(this));

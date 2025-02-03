@@ -33,5 +33,7 @@ public interface IActor
 
     bool IsDefenced { get; }
 
+    IActor[] EnemiesOnAttackLine();
+
     event Action Attacked;
 }

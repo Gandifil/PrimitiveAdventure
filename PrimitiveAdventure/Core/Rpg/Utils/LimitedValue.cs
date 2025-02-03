@@ -16,7 +16,7 @@ public class LimitedValue<T> : ILimitedValue<T> where T : IComparable<T>, IEquat
         get => _value.Value; 
         set => _value.Value = Max(new(), Min(MaxValue.Value, value)); }
 
-    IObservedValue<T> ILimitedValue<T>.Value { get; }
+    IObservedValue<T> ILimitedValue<T>.Value => _value;
     IObservedValue<T> ILimitedValue<T>.MaxValue => MaxValue;
     public float Progress => (float)Convert.ToDouble(_value.Value) / (float)Convert.ToDouble(MaxValue.Value);
 

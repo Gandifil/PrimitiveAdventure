@@ -12,7 +12,6 @@ public class ChooseScreen<T>: BaseScreen where T: class
     private readonly Console _titleConsole;
     private readonly IReadOnlyCollection<T> _elements;
     protected IEntityView<T> _entityView;
-    //private readonly TextBox _description;
     
     public T? Selected { get; private set; }
     
@@ -101,10 +100,12 @@ public class ChooseScreen<T>: BaseScreen where T: class
 
     private void ListOnSelectedItemChanged(object? sender, ListBox.SelectedItemEventArgs e)
     {
-        enterButton.IsEnabled = true;
         Selected = (T)e.Item!;
         _entityView.Set(Selected);
+        enterButton.IsEnabled = GetEnterIsEnabled();
     }
+    
+    protected virtual bool GetEnterIsEnabled() => true;
 
     protected void SetView<TView>(TView view) where TView : IScreenObject, IEntityView<T>
     {

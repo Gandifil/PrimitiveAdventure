@@ -23,11 +23,13 @@ public abstract class Ability: IAbility
 
     public CostData Cost { get; protected set;}
     
-    public bool IsUsableBy(IActor p)
+    public bool IsUsableBy(IActor? p = null)
     {
-        return _owner.Health.Value >= Cost.Health 
-               && _owner.Magic.Value >= Cost.Magic
-               && _owner.Stamina.Value >= Cost.Stamina;
+        p ??= _owner;
+        return p.Health.Value.Value >= Cost.Health 
+               && p.Magic.Value.Value >= Cost.Magic
+               && p.Stamina.Value.Value >= Cost.Stamina
+               && (p.EnemiesOnAttackLine().Length != 0 || !TargetIsRequired);
     }
 
     public void Use(Actor? target)

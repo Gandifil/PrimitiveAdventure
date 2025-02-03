@@ -15,4 +15,9 @@ public class AbilityChooseScreen: ChooseScreen<IAbility>
         _entityView = entityView;
         Children.Add(entityView);
     }
+
+    protected override bool GetEnterIsEnabled()
+    {
+        return Selected!.IsUsableBy();
+    }
 }

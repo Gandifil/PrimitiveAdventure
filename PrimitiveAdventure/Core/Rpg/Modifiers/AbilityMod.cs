@@ -9,6 +9,7 @@ public class AbilityMod(Ability Ability): IModifier
     public void Assign(Actor actor)
     {
         actor.Abilities.Add(Ability);
+        Ability.SetOwner(actor);
     }
 
     public void Cancel(Actor actor)
