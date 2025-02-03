@@ -18,6 +18,8 @@ public interface IPlayer: IActor, IGlobalMapCell
     public Equipment Equipment { get; }
     
     public MasteryManager Masteries { get; }
+
+    void LevelUp(int value = 1);
 }
 
 public class Player: Actor, IPlayer, ISaveable
@@ -62,9 +64,9 @@ public class Player: Actor, IPlayer, ISaveable
 
     public int MasteryPoints { get; private set; } = 1;
 
-    public void LevelUp(int value)
+    public void LevelUp(int value = 1)
     {
         Level += value;
-        MasteryPoints = 1 + value / 3;
+        MasteryPoints = 1 + Level / 3;
     }
 }

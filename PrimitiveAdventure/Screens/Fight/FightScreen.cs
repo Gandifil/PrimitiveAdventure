@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using PrimitiveAdventure.Core;
 using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
@@ -89,7 +90,10 @@ public class FightScreen: GlobalScreen
     private void FightProcessOnFinished(object? sender, int wonTeam)
     {
         if (wonTeam == 1)
-            new BackScreen<Credits>((_, _) => this.Start()).Start();
+        {
+            _fightProcess.Player.LevelUp();
+            GameState.Instance.StartScreen();
+        }
         else
             new BackScreen<FailView>((_, _) => new MainMenu().Start()).Start();
     }
@@ -101,7 +105,9 @@ public class FightScreen: GlobalScreen
         if (ability.TargetIsRequired)
         {
             var items = _fightProcess.MapTeam1.AllWhere(ability.TargetKind);
-            if (items.Count > 0)
+            if (items.Count == 1)
+                _fightProcess.Player.Control.SetMove(new UseAbility(ability, items.First()));
+            else if (items.Count > 1)
                 StartSelectMode(items);
             else
             {

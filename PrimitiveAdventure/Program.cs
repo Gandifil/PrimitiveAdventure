@@ -43,6 +43,7 @@ void Startup(object? sender, GameHost host)
     {
         var player = new Player();
         player.Masteries.Add(new HandToHandCombatMastery()).Get<AbilityTalent<VoidLoop>>()!.Upgrade(player);
+        new GameState(GlobalMap.TestMap(), player);
         new FightScreen(new FightProcess(player, [new Dog()])).Start();
     }
     else

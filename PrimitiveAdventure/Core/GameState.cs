@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.Design.Serialization;
+using System.Diagnostics;
 using PrimitiveAdventure.Core.Global;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
@@ -7,12 +8,15 @@ namespace PrimitiveAdventure.Core;
 
 public class GameState
 {
+    public static GameState Instance;
+    
     public Player Player { get; }
 
     public GlobalMap GlobalMap { get; }
 
     public GameState(GlobalMap globalMap, Player player)
     {
+        Instance = this;
         GlobalMap = globalMap;
         
         Player = player;
