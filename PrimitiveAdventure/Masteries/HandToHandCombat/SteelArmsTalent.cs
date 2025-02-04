@@ -12,7 +12,7 @@ public class SteelArmsTalent: ITalent
 
     public ModifiersList GetModifiersList(int level) => new()
     {
-        new ParamMod(Parameters.Kind.Armor, 2),
+        new ParamMod(Parameters.Kind.Armor, 1),
         new ParamMod(Parameters.Kind.AttackDamage, 1),
         new ParamMod(Parameters.Kind.ArmorPenetration, 1),
     };
