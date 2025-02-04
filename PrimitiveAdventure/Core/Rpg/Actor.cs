@@ -129,6 +129,8 @@ public abstract class Actor : IActor
     public void Tick()
     {
         IsDefenced = false;
+        Effects.Tick();
+        Stamina.Value += 1;
     }
     
     public FightMapView MapView { get; set; }
