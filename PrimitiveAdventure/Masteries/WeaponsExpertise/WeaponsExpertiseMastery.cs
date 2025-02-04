@@ -15,5 +15,6 @@ public class WeaponsExpertiseMastery: Mastery
         new DaggerTalent(),
         new MaceTalent(),
         new MaceTalent(),
+        new AbilityTalent<StrikesWhirlwindAbility>()
     ];
 }
