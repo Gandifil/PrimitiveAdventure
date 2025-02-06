@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
+using PrimitiveAdventure.Core.Rpg.Fight;
 
 namespace PrimitiveAdventure.Core.Rpg.Controlling;
 

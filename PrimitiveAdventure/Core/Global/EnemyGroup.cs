@@ -1,4 +1,5 @@
 ﻿using PrimitiveAdventure.Core.Rpg;
+using PrimitiveAdventure.Core.Rpg.Fight;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 using PrimitiveAdventure.Screens.Fight;
@@ -14,7 +15,9 @@ public class EnemyGroup: IGlobalMapCell
 
     public void OnCollisionWith(Player player)
     {
-        var fightProcess = new FightProcess(player, Enemies);
-        new FightScreen(fightProcess).Start();
+        var builder = new FightBuilder();
+        builder.AddPlayer(player);
+        builder.Add(Enemies);
+        builder.Build().Start();
     }
 }

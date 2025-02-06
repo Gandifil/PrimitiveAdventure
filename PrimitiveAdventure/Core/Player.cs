@@ -36,7 +36,6 @@ public class Player: Actor, IPlayer, ISaveable
     public Player()
     {
         Name = "Player";
-        Direction = 1;
 
         Masteries = new(this);
         Equipment.Changed += (sender, kind) => UpdateParameters();

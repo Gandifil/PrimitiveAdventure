@@ -1,6 +1,7 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
 using PrimitiveAdventure.Core.Rpg.Effects;
+using PrimitiveAdventure.Core.Rpg.Fight;
 using PrimitiveAdventure.Core.Rpg.Utils;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens.Fight;
@@ -31,7 +32,6 @@ public abstract class Actor : IActor
     public IControllable Controller { get; set; }
 
     public virtual int Damage { get; } = 1;
-    public int Direction { get; set; } = -1;
 
     public bool IsAlive => Health.Value > 0;
     
@@ -133,17 +133,13 @@ public abstract class Actor : IActor
         Stamina.Value += 1;
     }
     
-    public FightMapView MapView { get; set; }
+    public Team Team { get; set; }
+    
+    ITeam IActor.Team => Team;
 
     public IActor[] EnemiesOnAttackLine()
     {
-        return MapView.Enemies.Where(x => x.LocalPosition.X == LocalPosition.X + Direction)
+        return Team.Enemies.Where(x => x.LocalPosition.X == LocalPosition.X + Team.Direction)
             .ToArray<IActor>();
-    }
-
-    public void Assign(FightMapView mapView)
-    {
-        Health.Value = Health.MaxValue;
-        MapView = mapView;
     }
 }

@@ -1,8 +1,9 @@
-﻿using PrimitiveAdventure.Screens;
+﻿using PrimitiveAdventure.Core.Rpg.Fight;
+using PrimitiveAdventure.Screens;
 
 namespace PrimitiveAdventure.Core.Rpg.Controlling;
 
-public record Attack(Actor Target): IMove
+public record Attack(IActor Target): IMove
 {
     public int Order => 5;
     
@@ -10,6 +11,6 @@ public record Attack(Actor Target): IMove
     
     public void Apply(FightProcess fightProcess, Actor actor)
     {
-        actor.Attack(Target);
+        actor.Attack((Actor)Target);
     }
 }

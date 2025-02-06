@@ -1,4 +1,5 @@
-﻿using PrimitiveAdventure.Screens.Fight;
+﻿using PrimitiveAdventure.Core.Rpg.Fight;
+using PrimitiveAdventure.Screens.Fight;
 
 namespace PrimitiveAdventure.Core.Rpg.Controlling;
 

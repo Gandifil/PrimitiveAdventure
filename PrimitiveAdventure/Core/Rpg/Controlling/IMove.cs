@@ -1,4 +1,6 @@
-﻿namespace PrimitiveAdventure.Core.Rpg.Controlling;
+﻿using PrimitiveAdventure.Core.Rpg.Fight;
+
+namespace PrimitiveAdventure.Core.Rpg.Controlling;
 
 public interface IMove
 {

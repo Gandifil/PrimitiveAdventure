@@ -3,6 +3,7 @@ using PrimitiveAdventure.Core;
 using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Abilities;
 using PrimitiveAdventure.Core.Rpg.Controlling;
+using PrimitiveAdventure.Core.Rpg.Fight;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.SadConsole.Controls;
 using PrimitiveAdventure.Screens.Base;
@@ -19,32 +20,34 @@ public class FightScreen: GlobalScreen
     const int CELL_WIDTH = 24;
     const int CELL_HEIGHT = 10;
     
-    private readonly FightProcess _fightProcess;
+    private readonly IFightProcess _fightProcess;
     private readonly FightLog _fightLog;
     private readonly Dictionary<IActor, EnemyPanel> _enemyPanels  = new();
     private readonly PlayerPanel _playerPanel;
+    private readonly IPlayer _player;
 
     private readonly Button _attackButton;
     private readonly Button _defenceButton;
     private readonly Button _abilitiesButton;
     private readonly Button _moveButton;
     
-    public FightScreen(FightProcess fightProcess)
+    public FightScreen(IPlayer player, IFightProcess fightProcess)
     {
+        _player = player;
         _fightProcess = fightProcess;
-        _fightProcess.Finished += FightProcessOnFinished;
-
+        _fightProcess.Team1.Defeated += Team1OnDefeated;
+        _fightProcess.Team2.Defeated += Team2OnDefeated;
         
         _attackButton = new KeyedButton("атака".Prepare(), Keys.A);
-        _attackButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Attack((Actor)GetAttackTarget()));
+        _attackButton.Click += (_, __) => _player.Control.SetMove(new Attack((Actor)GetAttackTarget()));
         
         _defenceButton = new KeyedButton("защита".Prepare(), Keys.D);
-        _defenceButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(new Defence());
+        _defenceButton.Click += (_, __) => _player.Control.SetMove(new Defence());
         
         _abilitiesButton = new KeyedButton("способности".Prepare(), Keys.S);
         _abilitiesButton.Click += (_, __) =>
         {
-            var ability = new AbilityChooseScreen(_fightProcess.Player.Abilities)
+            var ability = new AbilityChooseScreen(_player.Abilities)
             {
                 BackScreen = this,
             };
@@ -60,12 +63,12 @@ public class FightScreen: GlobalScreen
         {
             ShowEnds = false,
         };
-        _moveButton.Click += (_, __) => _fightProcess.Player.Control.SetMove(Movement.Right);
+        _moveButton.Click += (_, __) => _player.Control.SetMove(Movement.Right);
 
-        _playerPanel = new PlayerPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, _fightProcess.Player);
+        _playerPanel = new PlayerPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, _player);
         Children.Add(new PlayerFightView(Width - CELL_WIDTH * FightProcess.MAP_WIDTH, 
             CELL_HEIGHT * FightProcess.MAP_HEIGHT, 
-            _fightProcess.Player)
+            _player)
         {
             Position = new Point(CELL_WIDTH * FightProcess.MAP_WIDTH + 1, 0),
         });
@@ -75,7 +78,7 @@ public class FightScreen: GlobalScreen
             
         });
         Children.Add(_playerPanel);
-        foreach (var enemy in _fightProcess.Team2)
+        foreach (var enemy in _fightProcess.Team2.Actors)
         {
             var panel = new EnemyPanel(width: CELL_WIDTH - 1, height: CELL_HEIGHT - 1, enemy);
             panel.Click += PanelOnClick;
@@ -87,15 +90,15 @@ public class FightScreen: GlobalScreen
         IsDirty = true;
     }
 
-    private void FightProcessOnFinished(object? sender, int wonTeam)
+    private void Team1OnDefeated(object? sender, EventArgs e)
     {
-        if (wonTeam == 1)
-        {
-            _fightProcess.Player.LevelUp();
-            GameState.Instance.StartScreen();
-        }
-        else
-            new BackScreen<FailView>((_, _) => new MainMenu().Start()).Start();
+        new BackScreen<FailView>((_, _) => new MainMenu().Start()).Start();
+    }
+
+    private void Team2OnDefeated(object? sender, EventArgs e)
+    {
+        _player.LevelUp();
+        GameState.Instance.StartScreen();
     }
 
     private void AbilityOnSelectedSuccessfully(IAbility ability)
@@ -104,9 +107,9 @@ public class FightScreen: GlobalScreen
         _selectedAbility = ability;
         if (ability.TargetIsRequired)
         {
-            var items = _fightProcess.MapTeam1.AllWhere(ability.TargetKind);
+            var items = _player.Team.AllWhere(ability.TargetKind);
             if (items.Count == 1)
-                _fightProcess.Player.Control.SetMove(new UseAbility(ability, items.First()));
+                _player.Control.SetMove(new UseAbility(ability, items.First()));
             else if (items.Count > 1)
                 StartSelectMode(items);
             else
@@ -115,7 +118,7 @@ public class FightScreen: GlobalScreen
             }
         }
         else
-            _fightProcess.Player.Control.SetMove(new UseAbility(ability));
+            _player.Control.SetMove(new UseAbility(ability));
     }
     
     private IAbility _selectedAbility;
@@ -135,7 +138,7 @@ public class FightScreen: GlobalScreen
     private void PanelOnClick(object? sender, EventArgs e)
     {
         var panel = (ActorPanel)sender!;
-        _fightProcess.Player.Control.SetMove(new UseAbility(_selectedAbility, panel.Actor));
+        _player.Control.SetMove(new UseAbility(_selectedAbility, panel.Actor));
         StopSelectMode();
     }
 
@@ -150,8 +153,7 @@ public class FightScreen: GlobalScreen
 
     private IActor? GetAttackTarget()
     {
-        return _fightProcess.Team2.SingleOrDefault(x =>
-            x.LocalPosition.X == _fightProcess.Player.LocalPosition.X + 1);
+        return _player.EnemiesOnAttackLine().SingleOrDefault();
     }
 
     public void Update()
@@ -165,7 +167,7 @@ public class FightScreen: GlobalScreen
 
     private void DrawEnemies()
     {
-        foreach (var enemy in _fightProcess.Team2)
+        foreach (var enemy in _fightProcess.Team2.Actors)
             DrawEnemy(enemy);
     }
 
@@ -189,11 +191,11 @@ public class FightScreen: GlobalScreen
 
     private void DrawPlayer()
     {
-        var (x, y) = _fightProcess.Player.LocalPosition;
+        var (x, y) = _player.LocalPosition;
         var rect = new Rectangle(CELL_WIDTH * x + 1, CELL_HEIGHT * y + 1, CELL_WIDTH + 1, CELL_HEIGHT + 1);
         _playerPanel.Position = rect.Position;
 
-        var movePosition = _fightProcess.Player.LocalPosition + (1, 0);
+        var movePosition = _player.LocalPosition + (1, 0);
         
         _moveButton.IsEnabled = false;
         Controls.Remove(_moveButton);
