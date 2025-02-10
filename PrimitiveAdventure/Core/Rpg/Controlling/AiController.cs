@@ -13,6 +13,8 @@ public class AiController: IControllable
 
     public IMove Move { get; private set; }
 
+    public event EventHandler Changed;
+
     public bool HasPredictedMove => true;
     
     public void Update(FightProcess fightProcess)
@@ -21,6 +23,7 @@ public class AiController: IControllable
             Move = new Attack(_target);
         else
             Move = new Movement(_actor.Team.Direction);
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 
     private IActor _target;

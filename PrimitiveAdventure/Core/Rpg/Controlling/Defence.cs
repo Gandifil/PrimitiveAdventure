@@ -7,7 +7,8 @@ public class Defence: IMove
 {
     public int Order => 1;
     
-    public string DisplayText { get; }
+
+    public string DisplayText => char.ConvertFromUtf32(1);
     
     public void Apply(FightProcess fightProcess, Actor actor)
     {

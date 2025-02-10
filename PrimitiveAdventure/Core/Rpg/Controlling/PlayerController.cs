@@ -6,6 +6,8 @@ public class PlayerController: IControllable, IActorController
 {
     public IMove Move { get; private set; }
 
+    public event EventHandler Changed;
+
     public bool HasPredictedMove => Move is not null;
     public void Update(FightProcess fightProcess)
     {

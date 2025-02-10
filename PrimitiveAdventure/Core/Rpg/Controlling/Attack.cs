@@ -6,8 +6,8 @@ namespace PrimitiveAdventure.Core.Rpg.Controlling;
 public record Attack(IActor Target): IMove
 {
     public int Order => 5;
-    
-    public string DisplayText { get; }
+
+    public string DisplayText => char.ConvertFromUtf32(2);
     
     public void Apply(FightProcess fightProcess, Actor actor)
     {
