@@ -7,7 +7,7 @@ using PrimitiveAdventure.Core.Rpg.Masteries;
 using PrimitiveAdventure.Masteries.HandToHandCombat;
 using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
-using PrimitiveAdventure.Screens.Fight;
+using PrimitiveAdventure.Utils;
 using SadConsole.Configuration;
 using Game = SadConsole.Game;
 using Settings = SadConsole.Settings;
@@ -28,30 +28,11 @@ void Startup(object? sender, GameHost host)
 {
     Settings.ResizeMode = Settings.WindowResizeOptions.Scale;
 
-    if (args.Contains("--test"))
+    if (args.Length != 0)
     {
-        var player = new Player();
-            //player.LevelUp(10);
-        var level = args.FirstOrDefault(x => x.StartsWith("--level="));
-        if (level is not null)
-        {
-            var value = level.Split('=')[1];
-            player.LevelUp(int.Parse(value));
-        }
-        
-        new GameState(GlobalMap.TestMap(), player).StartScreen();
+        new CmdParser(args).Run();
+        return;
     }
-    else if (args.Contains("--test-fight"))
-    {
-        var player = new Player();
-        player.Masteries.Add(new HandToHandCombatMastery()).Get<AbilityTalent<VoidLoop>>()!.Upgrade(player);
-        new GameState(GlobalMap.TestMap(), player);
-        var builder = new FightBuilder();
-        builder.AddPlayer(player);
-        builder.Add(new Dog());
-        var process = builder.Build().Start();
-        new FightScreen(player, process).Start();
-    }
-    else
-        new MainMenu().Start();
+
+    new MainMenu().Start();
 }
