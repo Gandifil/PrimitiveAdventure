@@ -14,7 +14,6 @@ public class FightBuilder
 
     public void Add(Actor actor)
     {
-        actor.Controller = new AiController(actor);
         _fightProcess.Teams[1].Add(actor);
     }
 

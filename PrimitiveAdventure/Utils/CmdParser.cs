@@ -35,7 +35,7 @@ public class CmdParser
             new GameState(GlobalMap.TestMap(), player);
             var builder = new FightBuilder();
             builder.AddPlayer(player);
-            builder.Add(new Dog());
+            builder.Add(new Skelet());
             var process = builder.Build().Start();
             new FightScreen(player, process).Start();
         }
