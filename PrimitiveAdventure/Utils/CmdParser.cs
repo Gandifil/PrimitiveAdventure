@@ -23,7 +23,7 @@ public class CmdParser
         var player = new Player();
         if (Has("test"))
         {
-            var level = Get("level");
+            var level = GetInt("level");
             if(level.HasValue)
                 player.LevelUp(level.Value);
         
@@ -35,7 +35,8 @@ public class CmdParser
             new GameState(GlobalMap.TestMap(), player);
             var builder = new FightBuilder();
             builder.AddPlayer(player);
-            builder.Add(new Skelet());
+            foreach (var enemy in GetArray("enemy"))
+                builder.Add(new Skelet());
             var process = builder.Build().Start();
             new FightScreen(player, process).Start();
         }
@@ -43,9 +44,17 @@ public class CmdParser
 
     private bool Has(string value) => _args.Contains("--" + value);
     
-    private int? Get(string name) {
+    private string? Get(string name) {
         var arg = _args.FirstOrDefault(x => x.StartsWith($"--{name}="));
         var valueStr = arg?.Split('=')[1];
+        return valueStr;
+    }
+
+    private string[] GetArray(string name) => 
+        _args.Where(x => x.StartsWith($"--{name}=")).Select(x => x.Split('=')[1]).ToArray();
+    
+    private int? GetInt(string name) {
+        var valueStr = Get(name);
         return valueStr is null ? null : int.Parse(valueStr);
     }
 }
