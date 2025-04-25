@@ -1,11 +1,4 @@
-﻿using PrimitiveAdventure.Core;
-using PrimitiveAdventure.Core.Global;
-using PrimitiveAdventure.Core.Rpg;
-using PrimitiveAdventure.Core.Rpg.Actors;
-using PrimitiveAdventure.Core.Rpg.Fight;
-using PrimitiveAdventure.Core.Rpg.Masteries;
-using PrimitiveAdventure.Masteries.HandToHandCombat;
-using PrimitiveAdventure.SadConsole;
+﻿using PrimitiveAdventure.SadConsole;
 using PrimitiveAdventure.Screens;
 using PrimitiveAdventure.Utils;
 using SadConsole.Configuration;

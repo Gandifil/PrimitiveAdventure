@@ -38,7 +38,7 @@ public class CmdParser
             builder.AddPlayer(player);
             var searcher = TypeSearcher.ForExecutingAssembly();
             foreach (var enemyName in GetArray("enemy"))
-                builder.Add(searcher.SearchAndActivate<Actor>(enemyName));
+                builder.Add(searcher.SearchAndActivate<Actor>(enemyName, 1));
             var process = builder.Build().Start();
             new FightScreen(player, process).Start();
         }
