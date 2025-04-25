@@ -1,5 +1,6 @@
 ﻿using PrimitiveAdventure.Core;
 using PrimitiveAdventure.Core.Global;
+using PrimitiveAdventure.Core.Rpg;
 using PrimitiveAdventure.Core.Rpg.Actors;
 using PrimitiveAdventure.Core.Rpg.Fight;
 using PrimitiveAdventure.Core.Rpg.Masteries;
@@ -35,8 +36,9 @@ public class CmdParser
             new GameState(GlobalMap.TestMap(), player);
             var builder = new FightBuilder();
             builder.AddPlayer(player);
-            foreach (var enemy in GetArray("enemy"))
-                builder.Add(new Skelet());
+            var searcher = TypeSearcher.ForExecutingAssembly();
+            foreach (var enemyName in GetArray("enemy"))
+                builder.Add(searcher.SearchAndActivate<Actor>(enemyName));
             var process = builder.Build().Start();
             new FightScreen(player, process).Start();
         }
