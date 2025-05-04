@@ -17,7 +17,7 @@ public class PlayerPanel: ActorPanel
         // area.OnDraw += DrawingAreaOnDraw;
         // Controls.Add(area);
         
-        Children.Add(new ResourceView(5, 6, _player.Resource!)
+        Children.Add(new ResourceView(5, 6, Player.RESOURCE_NAME)
         {
             Foreground = Color.Green,
         });
@@ -27,13 +27,5 @@ public class PlayerPanel: ActorPanel
         newColors.RebuildAppearances();
         
         Controls.ThemeColors = newColors;
-    }
-
-    private void DrawingAreaOnDraw(DrawingArea area, TimeSpan timeSpan)
-    {
-        var lines = Services.Resources.Load<IEnumerable<string>>(_player.Resource!);
-        int i = 0;
-        foreach (var line in lines)
-            Surface.Print(1, i++, line);
     }
 }

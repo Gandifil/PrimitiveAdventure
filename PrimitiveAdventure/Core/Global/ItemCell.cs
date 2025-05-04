@@ -1,13 +1,21 @@
 ﻿using PrimitiveAdventure.Core.Rpg.Items;
 using PrimitiveAdventure.SadConsole;
+using PrimitiveAdventure.Screens;
 using PrimitiveAdventure.Screens.Items;
 
 namespace PrimitiveAdventure.Core.Global;
 
 public class ItemCell(IItem Item): IGlobalMapCell
 {
-    public string RenderName { get; } = "f";
-    public string? Resource { get; } = null;
+    public IScreenObject View
+    {
+        get
+        {
+            var console = new Console(MapScreen.CELL_WIDTH, MapScreen.CELL_HEIGHT);
+            console.Cursor.Print("f");
+            return console;
+        }
+    }
 
     public void OnCollisionWith(Player player)
     {

@@ -8,8 +8,8 @@ namespace PrimitiveAdventure.Screens;
 
 public class MapScreen: BaseScreen
 {
-    const int CELL_WIDTH = 15;
-    const int CELL_HEIGHT = 7;
+    public const int CELL_WIDTH = 15;
+    public const int CELL_HEIGHT = 7;
     
     private readonly IGlobalMap _globalMap;
     private readonly IPlayer _player;
@@ -30,9 +30,8 @@ public class MapScreen: BaseScreen
         var playerCellPosition = _player.GlobalPosition * (CELL_WIDTH, CELL_HEIGHT) + (CELL_WIDTH / 2, CELL_HEIGHT / 2);
         var offset = playerCellPosition - (Width / 2, Height / 2) + (0, 1);
         offset *= -1;
-
-        var view = new Rectangle(0, 0, Width, Height);
         
+        var view = new Rectangle(0, 0, Width, Height);
         for (int x = 0; x < _globalMap.Size.X; x++)
         for (int y = 0; y < _globalMap.Size.Y; y++)
         {
@@ -46,6 +45,13 @@ public class MapScreen: BaseScreen
                 DrawCell(cell, rect);
         }
         Surface.ConnectLines(ICellSurface.ConnectedLineThin);
+        
+        DrawDoors(offset);
+    }
+
+    private void DrawDoors(Point offset)
+    {
+        var view = new Rectangle(0, 0, Width, Height);
         
         for (int x = 0; x < _globalMap.Size.X; x++)
         for (int y = 0; y < _globalMap.Size.Y; y++)
@@ -70,30 +76,8 @@ public class MapScreen: BaseScreen
 
     private void DrawCell(IGlobalMapCell cell, Rectangle rect)
     {
-        var resource = cell.Resource;
-        if (cell is EnemyGroup)
-        {
-            var animation = Animations.Noise(CELL_WIDTH - 1, CELL_HEIGHT - 1, Color.Red);
-            animation.Position = new Point(rect.X + 1, rect.Y + 1);
-            StartAnimation(animation);
-        }
-        if (string.IsNullOrEmpty(resource))
-            Cursor
-                .SetPrintAppearance(Color.Yellow)
-                .Move(rect.X + 1, rect.Y + 1)
-                .Print(cell.RenderName?.Prepare());
-        else
-        {
-            var lines = Services.Resources.Load<IEnumerable<string>>(resource);
-
-            Cursor.Move(rect.X + 1, rect.Y + 1)
-                .SetPrintAppearance(Color.Green);
-            foreach (var line in lines)
-            {
-                Cursor.Print(line);
-                Cursor.Row++;
-                Cursor.Column = rect.X + 1;
-            }
-        }
+        var screenObject = cell.View;
+        screenObject.Position = new Point(rect.X + 1, rect.Y + 1);
+        Children.Add(screenObject);
     }
 }

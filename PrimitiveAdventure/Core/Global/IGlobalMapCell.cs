@@ -2,9 +2,7 @@
 
 public interface IGlobalMapCell
 {
-    string RenderName { get; }
-    
-    string? Resource { get; }
+    IScreenObject View { get; }
 
     void OnCollisionWith(Player player)
     {
