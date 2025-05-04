@@ -19,7 +19,7 @@ public class GlobalModeScreen: GlobalScreen
         
         Children.Add(_mapScreen = new MapScreen(
             GameSettings.GAME_WIDTH - SEPARATE_SCREEN_WIDTH, 
-            GameSettings.GAME_HEIGHT, _gameState.GlobalMap, _gameState.Player));
+            GameSettings.GAME_HEIGHT, _gameState.GlobalMap, _gameState.PlayerCell));
     }
     
     public override bool ProcessKeyboard(Keyboard keyboard)

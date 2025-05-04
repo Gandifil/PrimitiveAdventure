@@ -14,6 +14,8 @@ public class GameState
     public static GameState Instance;
     
     public Player Player { get; }
+    
+    public PlayerCell PlayerCell { get; }
 
     public GlobalMap GlobalMap { get; }
 
@@ -23,20 +25,21 @@ public class GameState
         GlobalMap = globalMap;
         
         Player = player;
-        Player.GlobalPosition = new Point(3, 3);
-        GlobalMap.Spawn(Player, 3, 3);
+        PlayerCell = new PlayerCell(Player);
+        PlayerCell.Position = new Point(3, 3);
+        GlobalMap.Spawn(PlayerCell, 3, 3);
     }
 
     public void MovePlayer(Point shift)
     {
-        var newPosition = Player.GlobalPosition + shift;
+        var newPosition = PlayerCell.Position + shift;
 
         if (new Rectangle(Point.Zero, GlobalMap.Size - (1, 1)).Contains(newPosition))
         {
             var nextCell = GlobalMap[newPosition];
         
-            GlobalMap.Move(Player.GlobalPosition, newPosition);
-            Player.GlobalPosition = newPosition;
+            GlobalMap.Move(PlayerCell.Position, newPosition);
+            PlayerCell.Position = newPosition;
             nextCell?.OnCollisionWith(Player);
         }
     }

@@ -11,10 +11,8 @@ using PrimitiveAdventure.Utils;
 
 namespace PrimitiveAdventure.Core;
 
-public interface IPlayer: IActor, IGlobalMapCell
+public interface IPlayer: IActor
 {
-    public Point GlobalPosition { get; }
-    
     public IActorController Control { get; }
     
     public Equipment Equipment { get; }
@@ -27,10 +25,8 @@ public interface IPlayer: IActor, IGlobalMapCell
 public class Player: Actor, IPlayer, ISaveable
 {
     public static string RESOURCE_NAME = "player";
-
-    public IScreenObject View => new ResourceView(MapScreen.CELL_WIDTH, MapScreen.CELL_HEIGHT, RESOURCE_NAME);
     
-    public Point GlobalPosition { get; set; }
+    //public Point GlobalPosition { get; set; }
     public IActorController Control => (PlayerController)Controller;
     public Equipment Equipment { get; } = new();
     public MasteryManager Masteries { get; }

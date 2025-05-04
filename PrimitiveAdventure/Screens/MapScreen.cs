@@ -12,9 +12,9 @@ public class MapScreen: BaseScreen
     public const int CELL_HEIGHT = 7;
     
     private readonly IGlobalMap _globalMap;
-    private readonly IPlayer _player;
+    private readonly PlayerCell _player;
     
-    public MapScreen(int width, int height, IGlobalMap globalMap, IPlayer player) : base(width, height)
+    public MapScreen(int width, int height, IGlobalMap globalMap, PlayerCell player) : base(width, height)
     {
         _globalMap = globalMap;
         _player = player;
@@ -27,7 +27,7 @@ public class MapScreen: BaseScreen
         Children.Clear();
         this.Fill(new ColoredGlyph());
 
-        var playerCellPosition = _player.GlobalPosition * (CELL_WIDTH, CELL_HEIGHT) + (CELL_WIDTH / 2, CELL_HEIGHT / 2);
+        var playerCellPosition = _player.Position * (CELL_WIDTH, CELL_HEIGHT) + (CELL_WIDTH / 2, CELL_HEIGHT / 2);
         var offset = playerCellPosition - (Width / 2, Height / 2) + (0, 1);
         offset *= -1;
         
